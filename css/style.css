@@ -2376,6 +2376,18 @@ h1, h2, h3, h4, h5 {
   border-color: rgba(255,255,255,0.7);
 }
 
+/* ── Single Family Homes showcase — 5-column, desaturated ───────────── */
+.showcase-grid--sfh {
+  grid-template-columns: repeat(5, 1fr) !important;
+}
+.showcase-grid--sfh .showcase-card img {
+  filter: saturate(0.55) brightness(0.97);
+  transition: filter 0.4s ease, transform 0.5s ease;
+}
+.showcase-grid--sfh .showcase-card:hover img {
+  filter: saturate(0.85) brightness(1);
+}
+
 /* ── Per-image tuning classes ─────────────────────────────────────────
    Apply directly to the <img> element inside any project card.
    Example: <img class="project-image--contain project-image--top" …>
@@ -2524,8 +2536,12 @@ h1, h2, h3, h4, h5 {
   .multifamily-trio { grid-template-columns: 1fr; }
   .luxury-grid { grid-template-columns: 1fr 1fr; }
   .showcase-grid { grid-template-columns: 1fr 1fr; }
+  .showcase-grid--sfh { grid-template-columns: repeat(3, 1fr) !important; }
   .proj-section-header { flex-direction: column; gap: 8px; padding: 40px 32px 28px; }
   .showcase-section { padding: 40px 32px; }
+}
+@media (max-width: 600px) {
+  .showcase-grid--sfh { grid-template-columns: 1fr 1fr !important; }
 }
 
 /* ── Responsive: Method + Construction Highlight ─────────────────── */
