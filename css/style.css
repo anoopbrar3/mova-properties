@@ -2238,9 +2238,13 @@ h1, h2, h3, h4, h5 {
 .showcase-card {
   position: relative;
   overflow: hidden;
-  background: var(--stone);
+  background: #1C1B19;
   aspect-ratio: 3/4;
   cursor: default;
+}
+.showcase-card img {
+  object-fit: contain;
+  object-position: center center;
 }
 .showcase-card-overlay {
   position: absolute;
@@ -2261,6 +2265,47 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
+}
+.showcase-card-btn {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 4px 10px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.showcase-card-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* ── Per-image tuning classes ─────────────────────────────────────────
+   Apply directly to the <img> element inside any project card.
+   Example: <img class="project-image--contain project-image--top" …>
+─────────────────────────────────────────────────────────────────────── */
+.project-image--contain {
+  object-fit: contain !important;
+}
+.project-image--cover {
+  object-fit: cover !important;
+}
+.project-image--top {
+  object-position: center top !important;
+}
+.project-image--center {
+  object-position: center center !important;
+}
+.project-image--lower {
+  object-position: center 65% !important;
+}
+.project-image--wide {
+  object-fit: cover !important;
+  object-position: center 40% !important;
 }
 
 /* ── Projects Page — Multifamily Feature ─────────────────────────── */
@@ -2291,8 +2336,12 @@ h1, h2, h3, h4, h5 {
 }
 .multifamily-card-photo {
   overflow: hidden;
-  background: var(--stone);
+  background: #1C1B19;
   aspect-ratio: 4/3;
+}
+.multifamily-card-photo img {
+  object-fit: cover;
+  object-position: center top;
 }
 .multifamily-card-body {
   padding: 24px 28px 32px;
@@ -2343,9 +2392,13 @@ h1, h2, h3, h4, h5 {
 }
 .luxury-card-photo {
   overflow: hidden;
-  background: var(--stone);
+  background: #1C1B19;
   aspect-ratio: 3/4;
   position: relative;
+}
+.luxury-card-photo img {
+  object-fit: contain;
+  object-position: center center;
 }
 .luxury-card-body {
   padding: 16px 20px 20px;
