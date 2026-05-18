@@ -2007,7 +2007,7 @@ h1, h2, h3, h4, h5 {
 }
 .method-step {
   display: grid;
-  grid-template-columns: 120px 1fr 1fr;
+  grid-template-columns: 140px 1fr;
   align-items: start;
   padding: 40px 72px;
   border-bottom: 1px solid var(--border);
@@ -2531,7 +2531,6 @@ h1, h2, h3, h4, h5 {
 /* ── Responsive: Method + Construction Highlight ─────────────────── */
 @media (max-width: 900px) {
   .method-step { grid-template-columns: 80px 1fr; gap: 28px; padding: 28px 32px; }
-  .method-step-body { display: none; }
   .construction-highlight { grid-template-columns: 1fr; }
   .construction-highlight-right { grid-template-columns: 1fr 1fr 1fr 1fr; aspect-ratio: 16/5; }
   .journal-card-full { grid-template-columns: 1fr; gap: 32px; }
@@ -2577,7 +2576,6 @@ h1, h2, h3, h4, h5 {
   .about-headline { font-size: 36px; }
   .contact-title { font-size: 32px; }
   .method-step { grid-template-columns: 56px 1fr; gap: 18px; padding: 24px 28px; }
-  .method-step div:last-child { display: none; }
   .method-header { padding: 40px 28px 28px; flex-direction: column; gap: 16px; }
   .construction-highlight-left { padding: 40px 28px; }
   .construction-highlight-right { grid-template-columns: 1fr 1fr; }
