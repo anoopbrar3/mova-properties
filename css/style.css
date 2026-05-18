@@ -2388,16 +2388,17 @@ h1, h2, h3, h4, h5 {
   filter: saturate(0.85) brightness(1);
 }
 
-/* ── Spec Multifamily showcase — 5-column, contain, desaturated ─────── */
+/* ── Spec Multifamily showcase — 5-column, landscape cards, no whitespace */
 .showcase-grid--duplex {
   grid-template-columns: repeat(5, 1fr) !important;
 }
 .showcase-grid--duplex .showcase-card {
+  aspect-ratio: 4/3;
   background: var(--surface-warm);
 }
 .showcase-grid--duplex .showcase-card img {
-  object-fit: contain !important;
-  object-position: center bottom;
+  object-fit: cover;
+  object-position: center center;
   filter: saturate(0.55) brightness(0.97);
   transition: filter 0.4s ease;
 }
