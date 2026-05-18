@@ -1,0 +1,746 @@
+{
+  "version": "1.0",
+  "generated": "2025",
+  "note": "All images classified by project, type, quality, and recommended usage. HEIC files cannot be used in HTML — use JPG equivalents only.",
+  "projects": {
+    "the_arncote": {
+      "folder": "images/The Arncote",
+      "type": "Multifamily Completed",
+      "location": "Langford, BC",
+      "images": [
+        {
+          "file": "Arncote Rendering - 1nc.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["hero", "card", "overview"]
+        },
+        {
+          "file": "Arncote Rendering - 1s (1).jpg",
+          "type": "rendering",
+          "quality": "secondary",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "The Arncote - USE THIS - 1p.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["hero", "featured"]
+        },
+        {
+          "file": "Arncote - Exterior-809 Arncote Ave-1.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["hero", "gallery"]
+        },
+        {
+          "file": "Arncote - Exterior-809 Arncote Ave-6.jpg",
+          "type": "exterior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - Exterior-809 Arncote Ave-8.jpg",
+          "type": "exterior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote Rental Marketing Photos.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery", "overview"]
+        },
+        {
+          "file": "Arncote Rental Marketing Photos-8.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "Arncote Rental Marketing Photos-9.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote Rental Marketing Photos-23.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - Hallway-809 Arncote Ave-2.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - 402-809 Arncote Ave-10.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - 404-809 Arncote Ave-5.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - 501-809 Arncote Ave-2.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - 601-809 Arncote Ave-12.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "Arncote - Barren Land.heic",
+          "type": "construction_photo",
+          "quality": "reference",
+          "useFor": [],
+          "note": "HEIC — not browser-renderable. Convert to JPG to use."
+        },
+        {
+          "file": "Arncote - Framing Under Construction.heic",
+          "type": "construction_photo",
+          "quality": "reference",
+          "useFor": [],
+          "note": "HEIC — not browser-renderable. Convert to JPG to use."
+        }
+      ]
+    },
+    "the_hockley": {
+      "folder": "images/The Hockley",
+      "type": "Multifamily Under Construction",
+      "location": "Langford, BC",
+      "images": [
+        {
+          "file": "The Hockley Rendering - Camera_1.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["hero", "card", "overview"]
+        },
+        {
+          "file": "The Hockley - USE THIS - Camera_5_DAYTIME.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_0483.jpg",
+          "type": "construction_photo",
+          "quality": "hero",
+          "useFor": ["construction_grid", "homepage"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_0487.jpg",
+          "type": "construction_photo",
+          "quality": "hero",
+          "useFor": ["construction_grid", "homepage"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_0642.jpg",
+          "type": "construction_photo",
+          "quality": "gallery",
+          "useFor": ["construction_grid"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_8122.jpg",
+          "type": "construction_photo",
+          "quality": "hero",
+          "useFor": ["construction_grid", "homepage"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_8145.jpg",
+          "type": "construction_photo",
+          "quality": "gallery",
+          "useFor": ["construction_grid"]
+        },
+        {
+          "file": "The_Hockley_-_IMG_8172.jpg",
+          "type": "construction_photo",
+          "quality": "gallery",
+          "useFor": ["construction_grid"]
+        },
+        {
+          "file": "The Hockley - Existing Site - IMG_0853.jpg",
+          "type": "site_photo",
+          "quality": "reference",
+          "useFor": ["construction_timeline"]
+        },
+        {
+          "file": "The_Hockley_-_Old_House_IMG_7395.jpg",
+          "type": "site_photo",
+          "quality": "reference",
+          "useFor": ["construction_timeline"]
+        }
+      ]
+    },
+    "the_goldstream": {
+      "folder": "images/The Goldstream",
+      "type": "Multifamily Planning",
+      "location": "Langford, BC",
+      "images": [
+        {
+          "file": "The Goldstream - Aerial Rendering 1.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["hero", "card", "overview"]
+        },
+        {
+          "file": "The Goldstream - Rendering 2.jpg",
+          "type": "rendering",
+          "quality": "secondary",
+          "useFor": ["gallery", "overview"]
+        }
+      ]
+    },
+    "navigators_rise": {
+      "folder": "images/The Navigators",
+      "type": "Luxury Residential Completed",
+      "location": "Bear Mountain, BC",
+      "images": [
+        {
+          "file": "Navigators Rise - Real Estate Photos-18.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["hero", "featured"]
+        },
+        {
+          "file": "Navigators Rise - Real Estate Photos-20.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["homepage_founder", "overview"]
+        },
+        {
+          "file": "Navigators Rise - Real Estate Photos-25.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["homepage_hero", "overview"]
+        },
+        {
+          "file": "DSC_5178.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["overview", "gallery"]
+        },
+        {
+          "file": "997506_7.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["gallery", "design_page"]
+        },
+        {
+          "file": "997506_10.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["design_page", "journal", "featured"]
+        },
+        {
+          "file": "997506_13.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["gallery", "journal"]
+        },
+        {
+          "file": "997506_19.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_21.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["design_page", "gallery"]
+        },
+        {
+          "file": "997506_28.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_29.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["investors", "design_page", "gallery"]
+        },
+        {
+          "file": "997506_33.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_35.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_39.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_48.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_52.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_53.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "997506_54.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        }
+      ]
+    },
+    "the_caldera": {
+      "folder": "images/The Caldera",
+      "type": "Luxury Residential Completed",
+      "location": "Victoria, BC",
+      "images": [
+        {
+          "file": "77dc33dd-6126-48e1-8c96-56392624c4cc.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "kitchen_black_island",
+          "useFor": ["hero", "homepage", "design_page"]
+        },
+        {
+          "file": "0f9baabd-4e0e-4388-9cba-44e873424dd9.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "kitchen_island_detail",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "49ff5b4f-9092-4863-96e9-5d62d5b52a9b.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "kitchen_full_view",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "34c05bfd-af16-4e67-bf68-1b0e5f8d049f.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "living_area",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "8af9b901-7874-4b4a-9de7-95f0a1f22ab6.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "primary_ensuite",
+          "useFor": ["room_gallery", "design_page"]
+        },
+        {
+          "file": "0fbd174b-99a6-4b4a-a451-20b0b26c4f2d.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery", "journal"]
+        },
+        {
+          "file": "2cd69ded-6530-4a11-912e-8ad947c6e8ff 2.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"],
+          "note": "URL encode space as %20 and ' 2' as %202 in HTML src"
+        },
+        {
+          "file": "3a94324f-cc31-44c3-9276-a34bbc32f7c3 2.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"],
+          "note": "URL encode space as %20 and ' 2' as %202 in HTML src"
+        },
+        {
+          "file": "984f853e-c442-45e2-89c0-ac35700479a5.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "a2f426ee-9fb4-4ce7-96b3-93d4a58980df.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "e78e7eba-37d0-4c23-baef-1bd269d227c8 2.JPG",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"],
+          "note": "URL encode space as %20 and ' 2' as %202 in HTML src"
+        },
+        {
+          "file": "IMG_3902.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_3908.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_3912.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_3914.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_4453.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_4459.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        }
+      ]
+    },
+    "the_lone_oak": {
+      "folder": "images/The Lone Oak",
+      "type": "Luxury Residential Completed",
+      "location": "Victoria, BC",
+      "images": [
+        {
+          "file": "Lone Oak Exterior 2.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["hero", "card", "homepage"]
+        },
+        {
+          "file": "Lone Oak Kitchen.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "DSC_0719.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["overview", "gallery"]
+        },
+        {
+          "file": "DSC_2927.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_2940.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_2950-Pano.jpg",
+          "type": "interior_panorama",
+          "quality": "hero",
+          "useFor": ["room_gallery", "overview"]
+        },
+        {
+          "file": "DSC_2968-Pano.jpg",
+          "type": "interior_panorama",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "DSC_2981.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3022.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3080.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3081.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3082.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3163-Pano.jpg",
+          "type": "exterior_panorama",
+          "quality": "hero",
+          "useFor": ["overview", "gallery"]
+        }
+      ]
+    },
+    "the_rockhampton": {
+      "folder": "images/The Rockhampton",
+      "type": "Luxury Residential Completed",
+      "location": "Langford, BC",
+      "images": [
+        {
+          "file": "DSC_3030-Pano.jpg",
+          "type": "exterior_panorama",
+          "quality": "hero",
+          "subject": "golf_course_view",
+          "useFor": ["hero", "card", "homepage"]
+        },
+        {
+          "file": "DSC_2661.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_2668.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3076.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3087.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3089.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "DSC_3097.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        }
+      ]
+    },
+    "the_panorama": {
+      "folder": "images/The Panorama Ridge",
+      "type": "Luxury Residential Completed",
+      "location": "Panorama Ridge, Surrey BC",
+      "images": [
+        {
+          "file": "Panroama - Rendering 1S.jpg",
+          "type": "rendering",
+          "quality": "hero",
+          "useFor": ["hero"],
+          "note": "Note: filename has typo 'Panroama' — this is correct"
+        },
+        {
+          "file": "IMG_5460.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["overview", "gallery"]
+        },
+        {
+          "file": "IMG_5467.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "living_room",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "IMG_5477.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5479.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5483.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5497.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["overview", "gallery"]
+        },
+        {
+          "file": "IMG_5500.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5521.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "kitchen",
+          "useFor": ["room_gallery", "gallery"]
+        },
+        {
+          "file": "IMG_5524.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5529.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5536.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["overview", "gallery"]
+        },
+        {
+          "file": "IMG_5541.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5543.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5550.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5560.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "subject": "primary_suite",
+          "useFor": ["room_gallery", "gallery"]
+        },
+        {
+          "file": "IMG_5563.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5567.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        },
+        {
+          "file": "IMG_5576.jpg",
+          "type": "interior_photo",
+          "quality": "gallery",
+          "useFor": ["gallery"]
+        }
+      ]
+    },
+    "the_valiant": {
+      "folder": "images/The Valiant",
+      "type": "Multifamily Completed",
+      "location": "Calgary, AB",
+      "images": [
+        {
+          "file": "The Valiant - Exterior IMG_5151.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["hero", "card"]
+        },
+        {
+          "file": "DSC_0070.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "DSC_0089.jpg",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        },
+        {
+          "file": "SV_005.JPG",
+          "type": "interior_photo",
+          "quality": "hero",
+          "useFor": ["room_gallery"]
+        }
+      ]
+    },
+    "the_southpointe": {
+      "folder": "images/The Southpointe Homes",
+      "type": "Duplex Completed",
+      "location": "Victoria, BC",
+      "images": [
+        {
+          "file": "001_2407-azuritecres-1.jpg",
+          "type": "exterior_photo",
+          "quality": "hero",
+          "useFor": ["hero", "card"]
+        }
+      ]
+    }
+  },
+  "url_encoding_rules": {
+    "spaces": "Replace with %20",
+    "space_2_suffix": "Filenames ending in ' 2.JPG' encode the space as %20 so the full suffix is %202.JPG",
+    "case": "Preserve exact case from filesystem — case matters on Linux servers",
+    "heic": "HEIC files are not browser-renderable. Must be converted to JPG before use."
+  }
+}

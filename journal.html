@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Journal — MOVA Properties</title>
-  <meta name="description" content="MOVA Properties journal — thinking on design, development, and building for the long term.">
+  <meta name="description" content="MOVA Properties journal — thinking on design, development, materials, and building for the long term in British Columbia.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,9 +17,10 @@
   </a>
   <div class="nav-links" id="nav-links">
     <a href="projects.html"  class="nav-link">Projects</a>
-    <a href="services.html"  class="nav-link">Services</a>
+    <a href="design.html"    class="nav-link">Design</a>
     <a href="investors.html" class="nav-link">Investors</a>
     <a href="about.html"     class="nav-link">About</a>
+    <a href="journal.html"  class="nav-link active">Journal</a>
     <a href="contact.html"   class="nav-link">Contact</a>
   </div>
   <button class="hamburger" id="nav-toggle" aria-label="Open menu">
@@ -27,15 +28,105 @@
   </button>
 </nav>
 
-<!-- ── COMING SOON ───────────────────────────────────────────── -->
-<section style="padding:120px 64px;border-bottom:1px solid var(--border);background:var(--white);min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;">
-  <div style="max-width:480px;">
-    <p class="eyebrow" style="margin-bottom:20px;">Journal</p>
-    <h1 style="font-size:40px;font-weight:500;color:var(--text);letter-spacing:-0.03em;margin-bottom:20px;">Coming soon.</h1>
-    <p style="font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.85;margin-bottom:36px;">We are working on a journal — thinking on design, development, materials, and building for the long term. Check back soon, or get in touch directly.</p>
-    <a href="contact.html" class="btn-primary">Get in Touch →</a>
+<!-- ── PAGE HERO ────────────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="page-hero-left">
+    <p class="eyebrow page-hero-eyebrow">Editorial</p>
+    <h1 class="page-hero-title">Journal</h1>
+    <p class="page-hero-sub">Thinking on design, development, materials, and what it means to build for the long term — from the team shaping MOVA's portfolio.</p>
+  </div>
+  <div class="page-hero-right" style="display:flex;gap:3px;">
+    <div style="flex:1;overflow:hidden;background:var(--stone);">
+      <img src="images/The%20Navigators/997506_13.jpg" alt="MOVA interior" class="proj-img" loading="eager">
+    </div>
+    <div style="flex:1;overflow:hidden;background:var(--stone);">
+      <img src="images/The%20Caldera/0fbd174b-99a6-4b4a-a451-20b0b26c4f2d.JPG" alt="MOVA detail" class="proj-img" loading="eager">
+    </div>
   </div>
 </section>
+
+<!-- ── CATEGORY FILTER ───────────────────────────────────────── -->
+<div class="filter-bar">
+  <button class="filter-tab active">All</button>
+  <button class="filter-tab">Design</button>
+  <button class="filter-tab">Development</button>
+  <button class="filter-tab">Construction</button>
+  <button class="filter-tab">Investment</button>
+  <button class="filter-tab">Market</button>
+</div>
+
+<!-- ── FEATURED ARTICLE ──────────────────────────────────────── -->
+<div class="journal-card-full">
+  <div>
+    <p class="journal-tag">Design · Material</p>
+    <h2 class="journal-title" style="font-size:28px;line-height:1.2;">Why white oak ages better than every other material in a rental building</h2>
+    <p class="journal-excerpt">In a purpose-built rental building, material choices are amortised over decades and hundreds of tenancies. Most developers choose the lowest durable option. MOVA chooses differently — and the math supports the decision.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Design &nbsp;·&nbsp; 6 min read</p>
+  </div>
+  <div class="journal-photo" style="aspect-ratio:4/3;overflow:hidden;">
+    <img src="images/The%20Navigators/997506_10.jpg" alt="White oak interior" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+  </div>
+</div>
+
+<!-- ── ARTICLE GRID ───────────────────────────────────────────── -->
+<div class="journal-grid">
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Investment · Market</p>
+    <h3 class="journal-title">The case for CMHC MLI Select financing in a rate-normalisation cycle</h3>
+    <p class="journal-excerpt">When interest rates were rising, MLI Select looked like a lifeline. Now that they're falling, it looks like a structural advantage. Here is why the program continues to reward the right type of developer.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Investment &nbsp;·&nbsp; 8 min read</p>
+  </div>
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Development · Langford</p>
+    <h3 class="journal-title">Langford at the inflection point — growth market or growth myth?</h3>
+    <p class="journal-excerpt">MOVA has three projects in Langford, BC. Not because it is a growth story, but because the underlying demand drivers — employment, in-migration, constrained supply — remain structurally intact. An honest assessment.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Market &nbsp;·&nbsp; 5 min read</p>
+  </div>
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Construction</p>
+    <h3 class="journal-title">Managing a $40M construction draw: what the Hockley taught us about oversight</h3>
+    <p class="journal-excerpt">Construction draw management is one of the most consequential — and least discussed — disciplines in multifamily development. What we track, how we verify, and what we have learned from Draw 3 of 12 on the Hockley.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Construction &nbsp;·&nbsp; 7 min read</p>
+  </div>
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Design</p>
+    <h3 class="journal-title">The rooftop terrace question: amenity, premium, or both?</h3>
+    <p class="journal-excerpt">The Goldstream's rooftop terrace is one of the most debated design decisions in MOVA's current pipeline. How do you underwrite an amenity that has no direct revenue? The answer requires thinking like a long-term owner.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Design &nbsp;·&nbsp; 4 min read</p>
+  </div>
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Investment</p>
+    <h3 class="journal-title">Build-to-hold versus build-to-sell: the hidden cost of the exit</h3>
+    <p class="journal-excerpt">Most developers underestimate the cost of the hold — and overestimate the value of the exit. After building and holding The Arncote, here is what we know about the real economics of long-term multifamily ownership.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Investment &nbsp;·&nbsp; 6 min read</p>
+  </div>
+
+  <div class="journal-card fade-up">
+    <p class="journal-tag">Design · Luxury</p>
+    <h3 class="journal-title">High contrast interiors: the design logic behind The Caldera's black island</h3>
+    <p class="journal-excerpt">A matte black island against full-height marble is not a statement. It is a decision — one rooted in how people move through a kitchen, what they remember about a room, and why contrast sells a listing before the agent opens their mouth.</p>
+    <p class="journal-meta">Coming soon &nbsp;·&nbsp; Design &nbsp;·&nbsp; 4 min read</p>
+  </div>
+
+</div>
+
+<!-- ── NOTIFY ─────────────────────────────────────────────────── -->
+<div style="background:var(--warm-white);padding:80px 64px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+  <div>
+    <p class="eyebrow" style="margin-bottom:16px;">Stay Informed</p>
+    <h2 style="font-size:28px;font-weight:500;color:var(--text);letter-spacing:-0.025em;line-height:1.2;margin-bottom:16px;">Get notified when<br>articles are published.</h2>
+    <p style="font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.85;">Articles on design, development, construction, and investment strategy — published when we have something worth saying. No frequency commitment, no filler.</p>
+  </div>
+  <div>
+    <a href="contact.html" class="btn-primary" style="display:inline-block;margin-bottom:16px;">Get in Touch →</a>
+    <p style="font-size:11px;font-weight:300;color:var(--text-muted);line-height:1.7;">Or reach us directly at <a href="mailto:info@movaproperties.com" style="color:var(--text);text-decoration:underline;text-underline-offset:3px;">info@movaproperties.com</a></p>
+  </div>
+</div>
 
 <!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer class="footer">
@@ -47,9 +138,10 @@
   </div>
   <div class="footer-links">
     <a href="projects.html"  class="footer-link">Projects</a>
-    <a href="services.html"  class="footer-link">Services</a>
+    <a href="design.html"    class="footer-link">Design</a>
     <a href="investors.html" class="footer-link">Investors</a>
     <a href="about.html"     class="footer-link">About</a>
+    <a href="journal.html"   class="footer-link">Journal</a>
     <a href="contact.html"   class="footer-link">Contact</a>
   </div>
   <div class="footer-right">
