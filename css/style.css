@@ -2238,12 +2238,12 @@ h1, h2, h3, h4, h5 {
 .showcase-card {
   position: relative;
   overflow: hidden;
-  background: #1C1B19;
+  background: var(--stone);
   aspect-ratio: 3/4;
   cursor: default;
 }
 .showcase-card img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
 }
 .showcase-card-overlay {
@@ -2336,12 +2336,12 @@ h1, h2, h3, h4, h5 {
 }
 .multifamily-card-photo {
   overflow: hidden;
-  background: #1C1B19;
+  background: var(--stone);
   aspect-ratio: 4/3;
 }
 .multifamily-card-photo img {
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
 }
 .multifamily-card-body {
   padding: 24px 28px 32px;
@@ -2392,12 +2392,12 @@ h1, h2, h3, h4, h5 {
 }
 .luxury-card-photo {
   overflow: hidden;
-  background: #1C1B19;
+  background: var(--stone);
   aspect-ratio: 3/4;
   position: relative;
 }
 .luxury-card-photo img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
 }
 .luxury-card-body {
