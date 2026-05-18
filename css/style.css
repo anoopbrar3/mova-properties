@@ -2222,6 +2222,163 @@ h1, h2, h3, h4, h5 {
   flex-shrink: 0;
 }
 
+/* ── Showcase Grid (no own page — rendering cards) ───────────────── */
+.showcase-section {
+  padding: 56px 64px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin: 0 -64px;
+  border-top: 1px solid var(--border);
+}
+.showcase-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--stone);
+  aspect-ratio: 3/4;
+  cursor: default;
+}
+.showcase-card-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 16px 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+}
+.showcase-card-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+.showcase-card-loc {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── Projects Page — Multifamily Feature ─────────────────────────── */
+.proj-section-header {
+  padding: 56px 64px 36px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.proj-section-title {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.025em;
+  margin-top: 10px;
+}
+.multifamily-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+}
+.multifamily-card {
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+.multifamily-card-photo {
+  overflow: hidden;
+  background: var(--stone);
+  aspect-ratio: 4/3;
+}
+.multifamily-card-body {
+  padding: 24px 28px 32px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.multifamily-card-name {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.multifamily-card-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+  flex: 1;
+  margin-bottom: 20px;
+}
+.multifamily-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.multifamily-card-meta {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Luxury Homes Grid ───────────────────────────────────────────── */
+.luxury-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border);
+}
+.luxury-card {
+  background: var(--white);
+  overflow: hidden;
+}
+.luxury-card-photo {
+  overflow: hidden;
+  background: var(--stone);
+  aspect-ratio: 3/4;
+  position: relative;
+}
+.luxury-card-body {
+  padding: 16px 20px 20px;
+}
+.luxury-card-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.luxury-card-tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.luxury-card-loc {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Responsive: showcase + proj sections ────────────────────────── */
+@media (max-width: 900px) {
+  .multifamily-trio { grid-template-columns: 1fr; }
+  .luxury-grid { grid-template-columns: 1fr 1fr; }
+  .showcase-grid { grid-template-columns: 1fr 1fr; }
+  .proj-section-header { flex-direction: column; gap: 8px; padding: 40px 32px 28px; }
+  .showcase-section { padding: 40px 32px; }
+}
+
 /* ── Responsive: Method + Construction Highlight ─────────────────── */
 @media (max-width: 900px) {
   .method-step { grid-template-columns: 80px 1fr; gap: 28px; padding: 28px 32px; }
