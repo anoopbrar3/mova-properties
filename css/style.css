@@ -2393,10 +2393,12 @@ h1, h2, h3, h4, h5 {
   grid-template-columns: repeat(5, 1fr) !important;
 }
 .showcase-grid--duplex .showcase-card {
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/3 !important;
   background: var(--surface-warm);
 }
 .showcase-grid--duplex .showcase-card img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center center;
   filter: saturate(0.55) brightness(0.97);
