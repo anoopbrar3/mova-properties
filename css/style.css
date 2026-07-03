@@ -2631,3 +2631,170 @@ h1, h2, h3, h4, h5 {
   .metrics-proof-cell { border-right: none; }
   .feat-trio { grid-template-columns: 1fr; }
 }
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MOVA PROPERTIES — Animation System v1
+   Subtle, editorial — no gimmicks
+══════════════════════════════════════════════════════════════════ */
+
+/* ── Hero stagger (page load, not scroll) ─────────────────────── */
+.hero-stagger {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroReveal 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-stagger-1 { animation-delay: 0ms; }
+.hero-stagger-2 { animation-delay: 130ms; }
+.hero-stagger-3 { animation-delay: 260ms; }
+.hero-stagger-4 { animation-delay: 400ms; }
+@keyframes heroReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Ken Burns on hero images ─────────────────────────────────── */
+.hero-ken-burns {
+  overflow: hidden;
+}
+.hero-ken-burns img {
+  animation: kenBurns 12s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+/* ── Nav logo hover ─────────────────────────────────────────────── */
+.nav-logo-name {
+  transition: letter-spacing 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-logo:hover .nav-logo-name {
+  letter-spacing: 0.18em;
+}
+
+/* ── Nav active underline animate ───────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ── Button arrow nudge ─────────────────────────────────────────── */
+.btn-primary .btn-arrow,
+.btn-secondary-light .btn-arrow,
+.txt-link .btn-arrow {
+  display: inline-block;
+  transition: transform 0.22s ease-out;
+}
+.btn-primary:hover .btn-arrow,
+.btn-secondary-light:hover .btn-arrow,
+.txt-link:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ── Multifamily card photo zoom ────────────────────────────────── */
+.multifamily-card-photo {
+  overflow: hidden;
+}
+.multifamily-card-photo img {
+  transition: transform 0.65s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.multifamily-card:hover .multifamily-card-photo img {
+  transform: scale(1.04) !important;
+}
+
+/* ── Luxury card body lift ──────────────────────────────────────── */
+.luxury-card-body {
+  transition: transform 0.3s ease;
+}
+.luxury-card:hover .luxury-card-body {
+  transform: translateY(-5px);
+}
+.luxury-card-photo img {
+  transition: transform 0.65s cubic-bezier(0.22,1,0.36,1) !important;
+}
+.luxury-card:hover .luxury-card-photo img {
+  transform: scale(1.035) !important;
+}
+
+/* ── Showcase card overlay subtle lift ──────────────────────────── */
+.showcase-card-overlay {
+  transition: transform 0.3s ease;
+}
+.showcase-card:hover .showcase-card-overlay {
+  transform: translateY(-4px);
+}
+
+/* ── Section line draw-in ───────────────────────────────────────── */
+.line-draw {
+  display: block;
+  height: 1px;
+  background: var(--border);
+  width: 0;
+  transition: width 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.line-draw.visible {
+  width: 100%;
+}
+
+/* ── Palette swatch stagger ─────────────────────────────────────── */
+.palette-swatch {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.palette-swatch.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Progress bar animate ───────────────────────────────────────── */
+.draw-bar-animated {
+  width: 0 !important;
+  transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+.draw-bar-animated.visible {
+  width: var(--draw-target-width) !important;
+}
+
+/* ── Construction milestone dot stagger ────────────────────────── */
+.milestone-dot {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.milestone-dot.visible {
+  opacity: 1;
+}
+
+/* ── Form input focus border grow ───────────────────────────────── */
+.form-input, .form-select, .form-textarea {
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-left-color: var(--american-walnut);
+  outline: none;
+  box-shadow: none;
+}
+
+/* ── txt-link arrow nudge ───────────────────────────────────────── */
+.txt-link {
+  transition: color 0.2s ease;
+}
+.txt-link:hover {
+  color: var(--text);
+}
+

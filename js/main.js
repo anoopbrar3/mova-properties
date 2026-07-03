@@ -1,5 +1,5 @@
 /* ============================================
-   MOVA PROPERTIES — Main JavaScript v2
+   MOVA PROPERTIES — Main JavaScript v3
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
     fadeEls.forEach(el => observer.observe(el));
   }
 
@@ -102,5 +102,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { rootMargin: '200px' });
     lazyImgs.forEach(img => imgObserver.observe(img));
   }
+
+  /* ── Section line draw-in ────────────────── */
+  const lineEls = document.querySelectorAll('.line-draw');
+  if (lineEls.length) {
+    const lineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          lineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    lineEls.forEach(el => lineObserver.observe(el));
+  }
+
+  /* ── Palette swatch stagger ──────────────── */
+  const swatches = document.querySelectorAll('.palette-swatch');
+  if (swatches.length) {
+    const swatchObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const allSwatches = entry.target.closest('.palette-row')
+            ?.querySelectorAll('.palette-swatch') || [entry.target];
+          allSwatches.forEach((s, i) => {
+            setTimeout(() => s.classList.add('visible'), i * 80);
+          });
+          swatchObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    swatches.forEach(el => swatchObserver.observe(el));
+  }
+
+  /* ── Progress bar animate on scroll ─────── */
+  const drawBars = document.querySelectorAll('.draw-bar-animated');
+  if (drawBars.length) {
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const targetW = bar.dataset.targetWidth || '28%';
+          bar.style.setProperty('--draw-target-width', targetW);
+          requestAnimationFrame(() => bar.classList.add('visible'));
+          barObserver.unobserve(bar);
+        }
+      });
+    }, { threshold: 0.5 });
+    drawBars.forEach(el => barObserver.observe(el));
+  }
+
+  /* ── Construction milestone dot stagger ──── */
+  const milestoneRows = document.querySelectorAll('.milestone-row');
+  if (milestoneRows.length) {
+    const milestoneObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const rows = entry.target.querySelectorAll('.milestone-dot');
+          rows.forEach((dot, i) => {
+            setTimeout(() => dot.classList.add('visible'), i * 80);
+          });
+          milestoneObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    milestoneRows.forEach(el => milestoneObserver.observe(el));
+  }
+
+  /* ── Arrow nudge: split → text + arrow span ─ */
+  document.querySelectorAll('.btn-primary, .btn-secondary-light, .txt-link').forEach(btn => {
+    const text = btn.textContent;
+    if (text.includes('→')) {
+      btn.innerHTML = text.replace('→', '<span class="btn-arrow">→</span>');
+    }
+  });
 
 });
