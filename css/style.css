@@ -11,8 +11,8 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #F7F3EC;
-  color: #1F1E1B;
+  background: var(--background);
+  color: var(--text);
   font-size: 14px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -29,31 +29,35 @@ h1, h2, h3, h4, h5 {
 
 /* ── Tokens ─────────────────────────────────────────────────────── */
 :root {
-  /* Warm editorial palette */
-  --background:       #F7F3EC;
-  --surface:          #FBFAF7;
-  --surface-warm:     #EFE8DC;
-  --text:             #1F1E1B;
-  --text-muted:       #6F6A61;
-  --border:           #D8D0C3;
-  --warm-beige:       #D9CDBB;
-  --white-oak:        #C8AA82;
-  --american-walnut:  #5A3924;
-  --cta:              #4A2F1D;
-  --cta-hover:        #3A2215;
+  /* MOVA — Navy · Gold · Linen */
+  --background:       #F7F3EC;   /* linen — page background */
+  --surface:          #FBFAF7;   /* near-white — cards, inputs */
+  --surface-warm:     #EFE8DC;   /* warm cream — alternating sections */
+  --text:             #0C2033;   /* deep navy — all primary text */
+  --text-muted:       #4A6070;   /* muted navy-grey — secondary text */
+  --border:           #D8D0C3;   /* warm grey border */
+  --accent:           #C8955C;   /* warm gold — eyebrows, active states, highlights */
+  --accent-hover:     #B07A40;   /* gold darkened for hover */
+  --cta:              #0C2033;   /* navy — buttons */
+  --cta-hover:        #091929;   /* darker navy — button hover */
+  --navy:             #0C2033;   /* primary dark — nav, footer, dark sections */
+  --navy-light:       #1A3A52;   /* lighter navy — secondary dark surfaces */
+
+  /* Aliases for backward compatibility */
+  --white:            #FBFAF7;
+  --warm-white:       #EFE8DC;
+  --light-grey:       #EFE8DC;
+  --bg:               #F7F3EC;
+  --muted:            #4A6070;
+  --subtle:           #7A9AAA;
+  --dark:             #0C2033;
+  --charcoal:         #0C2033;
+  --white-oak:        #C8955C;   /* repurposed → gold accent */
+  --american-walnut:  #0C2033;   /* repurposed → navy */
+  --warm-beige:       #D8D0C3;
   --taupe:            #B8A88F;
   --stone:            #D8D0C3;
-  --charcoal:         #2A2A2A;
-
-  /* Legacy aliases — keep so older page fragments don't break */
-  --white:       #FBFAF7;
-  --warm-white:  #EFE8DC;
-  --light-grey:  #EFE8DC;
-  --bg:          #F7F3EC;
-  --muted:       #6F6A61;
-  --subtle:      #9A9590;
-  --dark:        #1F1E1B;
-  --oak:         #C8AA82;
+  --oak:              #C8955C;
 }
 
 /* ── Scroll animations ──────────────────────────────────────────── */
@@ -73,7 +77,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent);
 }
 
 /* ── Buttons ────────────────────────────────────────────────────── */
@@ -177,7 +181,7 @@ h1, h2, h3, h4, h5 {
   border-bottom: 1px solid var(--border);
   transition: box-shadow 0.25s;
 }
-.nav.scrolled { box-shadow: 0 1px 24px rgba(90,57,36,0.07); }
+.nav.scrolled { box-shadow: 0 1px 24px rgba(12,32,51,0.08); }
 
 .nav-logo {
   display: flex;
@@ -217,7 +221,7 @@ h1, h2, h3, h4, h5 {
   transition: color 0.18s;
 }
 .nav-link:hover { color: var(--text); }
-.nav-link.active { color: var(--cta); }
+.nav-link.active { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
 
 .hamburger {
   display: none;
@@ -232,8 +236,8 @@ h1, h2, h3, h4, h5 {
 
 /* ── Footer ───────────────────────────────────────────────────────── */
 .footer {
-  background: var(--surface-warm);
-  border-top: 1px solid var(--border);
+  background: var(--navy);
+  border-top: none;
   padding: 36px 64px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -243,29 +247,29 @@ h1, h2, h3, h4, h5 {
 .footer-logo-name {
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--text);
+  letter-spacing: 0.1em;
+  color: var(--background);
 }
 .footer-logo-sub {
   font-size: 6px;
   font-weight: 300;
-  letter-spacing: 0.36em;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
-  color: #555;
+  color: rgba(247,243,236,0.45);
   margin-top: 2px;
 }
 .footer-links { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
 .footer-link {
   font-size: 11px;
   letter-spacing: 0.03em;
-  color: var(--text-muted);
+  color: rgba(247,243,236,0.5);
   transition: color 0.18s;
 }
-.footer-link:hover { color: var(--text); }
+.footer-link:hover { color: var(--background); }
 .footer-right { text-align: right; }
-.footer-copy { font-size: 10px; color: #888; line-height: 1.9; }
+.footer-copy { font-size: 10px; color: rgba(247,243,236,0.3); line-height: 1.9; }
 .footer-copy a { color: inherit; transition: color 0.18s; }
-.footer-copy a:hover { color: var(--text); }
+.footer-copy a:hover { color: rgba(247,243,236,0.7); }
 
 /* ── Shared project card ──────────────────────────────────────────── */
 .proj-card {
@@ -431,7 +435,7 @@ h1, h2, h3, h4, h5 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 64px;
   font-weight: 300;
-  color: var(--american-walnut);
+  color: var(--navy);
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 10px;
@@ -704,7 +708,7 @@ h1, h2, h3, h4, h5 {
 
 /* Investor CTA dark band */
 .inv-band {
-  background: var(--american-walnut);
+  background: var(--navy);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -1105,7 +1109,7 @@ h1, h2, h3, h4, h5 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 52px;
   font-weight: 300;
-  color: var(--american-walnut);
+  color: var(--navy);
   letter-spacing: -0.02em;
   line-height: 1;
   margin-bottom: 10px;
@@ -2785,7 +2789,7 @@ h1, h2, h3, h4, h5 {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-left-color: var(--american-walnut);
+  border-left-color: var(--navy);
   outline: none;
   box-shadow: none;
 }
