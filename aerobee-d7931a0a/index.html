@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroBee — Aviation Collective Intelligence</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50 3 93 26 93 74 50 97 7 74 7 26' fill='%23FFB300'/></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=11">
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="brand">
+    <svg viewBox="0 0 78 82" class="brand-hex" style="color:#d9a441"><g fill="currentColor"><polygon points="39.5,22.7 34.5,31.3 24.5,31.3 19.5,22.7 24.5,14.0 34.5,14.0"/><polygon points="55.0,14.0 50.0,22.7 40.0,22.7 35.0,14.0 40.0,5.3 50.0,5.3"/><polygon points="24.0,31.3 19.0,40.0 9.0,40.0 4.0,31.3 9.0,22.7 19.0,22.7"/><polygon points="39.5,40.0 34.5,48.6 24.5,48.6 19.5,40.0 24.5,31.3 34.5,31.3"/><polygon points="55.0,31.3 50.0,40.0 40.0,40.0 35.0,31.3 40.0,22.7 50.0,22.7"/><polygon points="24.0,48.6 19.0,57.3 9.0,57.3 4.0,48.6 9.0,40.0 19.0,40.0"/><polygon points="39.5,57.3 34.5,66.0 24.5,66.0 19.5,57.3 24.5,48.6 34.5,48.6"/><polygon points="55.0,48.6 50.0,57.3 40.0,57.3 35.0,48.6 40.0,40.0 50.0,40.0"/><polygon points="39.5,74.6 34.5,83.3 24.5,83.3 19.5,74.6 24.5,66.0 34.5,66.0"/></g></svg>
+    <div>
+      <div class="brand-name">Aero<span>Bee</span></div>
+      <div class="brand-sub">Collective Intelligence</div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-group">Dashboards</div>
+    <a class="nav-item active" data-view="overview"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.2" cy="4.2" r="1.7"/><circle cx="11.8" cy="4.2" r="1.7"/><circle cx="4.2" cy="11.8" r="1.7"/><circle cx="11.8" cy="11.8" r="1.7"/></svg>Fleet & Flights</a>
+    <a class="nav-item" data-view="replay"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2 7.6 14 6.3 9.7 2 8.4 Z"/><path d="M6.3 9.7 14 2"/></svg>Flight Replay 2D</a>
+    <a class="nav-item" data-view="replay3d"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.2"/><ellipse cx="8" cy="8" rx="2.7" ry="6.2"/><path d="M1.8 8h12.4"/></svg>Flight Replay 3D</a>
+    <div class="nav-group">The Studio — AI Apps</div>
+    <a class="nav-item" data-view="health"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5h3L6.4 4l2.6 8 1.7-3.5h3.8"/></svg>Aircraft Health</a>
+    <a class="nav-item" data-view="pdm"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13 6 8.6l3 2.2L14 4"/><path d="M10.6 4H14v3.4"/></svg>Predictive Maintenance</a>
+    <a class="nav-item" data-view="perf"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13.5h12M4.5 13.5 7 3.5M11.5 13.5 9 3.5"/><path d="M5.6 9h4.8"/></svg>T/O &amp; Landing</a>
+    <a class="nav-item" data-view="engine"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4"/></svg>Engine Condition</a>
+    <a class="nav-item" data-view="fuel"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8C5.5 5.3 3.7 7.7 3.7 10a4.3 4.3 0 0 0 8.6 0C12.3 7.7 10.5 5.3 8 1.8Z"/></svg>Fuel Optimization</a>
+    <a class="nav-item" data-view="safety"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8 13 3.6V8c0 3.2-2.2 5.2-5 6.4C5.2 13.2 3 11.2 3 8V3.6Z"/></svg>Proactive Safety <span class="badge" id="nav-event-count"></span></a>
+    <a class="nav-item" data-view="report"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="1.8" width="9.2" height="12.4" rx="1.6"/><path d="M6 6h4M6 8.6h4M6 11.2h2.5"/></svg>End of Flight Report</a>
+    <div class="nav-group">The Beehive</div>
+    <a class="nav-item" data-view="connectors"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="3.4" cy="8" r="1.8"/><circle cx="12.6" cy="3.6" r="1.8"/><circle cx="12.6" cy="12.4" r="1.8"/><path d="M5 7.2l6-2.8M5 8.8l6 2.8"/></svg>Data Connectors</a>
+    <a class="nav-item" data-view="ai"><svg class="ni" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.4a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v4.8a2 2 0 0 1-2 2H7.4l-2.9 2.6v-2.6h-.1a2 2 0 0 1-2-2Z"/></svg>Ask AeroBee</a>
+  </nav>
+
+  <div class="sidebar-foot">
+    <div class="ac-chip">
+      <div class="ac-reg" id="side-flight">—</div>
+      <div class="ac-type">Airbus A310-300 · N310AB</div>
+      <div class="ac-src" id="side-fidelity">select a flight</div>
+    </div>
+  </div>
+</aside>
+
+<main id="main">
+  <header id="topbar">
+    <div id="view-title">Fleet & Flights</div>
+    <div class="topbar-right">
+      <input id="ask-input" placeholder="Ask AeroBee anything about this data…">
+      <div class="live-dot"><span></span>DEMO FLEET · N310AB</div>
+    </div>
+  </header>
+
+  <!-- ======================= FLEET & FLIGHTS ======================= -->
+  <section class="view active" id="view-overview">
+    <div class="fleet-strip" id="fleet-strip"></div>
+    <div class="panel" style="margin-top:14px">
+      <div class="panel-head"><h3>Flight Library — N310AB</h3>
+        <span class="panel-note">2 full-rate FDR decodes · 3 satellite downlink flights — click to load</span></div>
+      <div class="flight-cards" id="flight-cards"></div>
+    </div>
+    <div class="grid-2" style="margin-top:16px;grid-template-columns:2.1fr 1fr">
+      <div class="kpi-row" id="ov-kpis" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));align-content:start"></div>
+      <div class="panel"><div class="panel-head"><h3>Operations Feed</h3><span class="panel-note">latest events · all flights</span></div>
+        <div class="ops-feed" id="ops-feed"></div></div>
+    </div>
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h3>Network Map — logged city pairs</h3><span class="panel-note" id="ov-map-note"></span></div>
+        <div id="ov-map" class="map"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Top Routes</h3><span class="panel-note">by flights logged</span></div>
+        <table class="tbl" id="ov-routes"></table>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Monthly Utilization</h3><span class="panel-note">flights & block hours</span></div>
+        <div class="chart-wrap"><canvas id="ov-monthly"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Monthly Fuel Burn</h3><span class="panel-note">from FQ deltas (lb)</span></div>
+        <div class="chart-wrap"><canvas id="ov-fuel"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= REPLAY 2D ======================= -->
+  <section class="view" id="view-replay">
+    <div class="flightbar" id="rp-flightbar"></div>
+    <div class="panel" style="margin-top:12px;padding:12px 20px">
+      <div class="fp-bar"><div class="fp-ends" id="fp-dep"></div>
+        <div class="fp-track"><i id="fp-fill"></i><span class="fp-plane" id="fp-plane"></span></div>
+        <div class="fp-ends right" id="fp-arr"></div></div>
+    </div>
+    <div class="kpi-row kpi-replay" id="rp-kpis" style="margin-top:12px"></div>
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head">
+          <h3 id="rp-map-title">Flight Track</h3>
+          <div class="replay-controls">
+            <button class="btn wx-btn" id="wx-winds">Winds</button>
+            <button class="btn wx-btn" id="wx-radar">Radar</button>
+            <button id="rp-play" class="btn-gold">Play</button>
+            <div class="speed-group" id="rp-speeds"></div>
+          </div>
+        </div>
+        <div id="rp-map" class="map map-tall"></div>
+        <div class="strip-wrap">
+          <input type="range" id="rp-slider" min="0" max="1000" value="0">
+          <div class="chart-wrap strip"><canvas id="rp-strip"></canvas></div>
+        </div>
+      </div>
+      <div class="right-stack">
+        <div class="panel">
+          <div class="panel-head"><h3>Phase</h3><span class="phase-badge" id="rp-phase">—</span></div>
+          <div class="gauge-row">
+            <div class="gauge-cell"><canvas id="g-n1a" width="110" height="88"></canvas><div class="gauge-lbl">N1 · ENG 1</div></div>
+            <div class="gauge-cell"><canvas id="g-n1b" width="110" height="88"></canvas><div class="gauge-lbl">N1 · ENG 2</div></div>
+            <div class="gauge-cell"><canvas id="g-egta" width="110" height="88"></canvas><div class="gauge-lbl">EGT · ENG 1</div></div>
+            <div class="gauge-cell"><canvas id="g-egtb" width="110" height="88"></canvas><div class="gauge-lbl">EGT · ENG 2</div></div>
+          </div>
+          <div class="mini-kpis" id="rp-engine-kpis"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Flight Controls</h3><span class="panel-note" id="rp-ctl-src">—</span></div>
+          <div class="controls-panel" id="rp-controls"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Attitude & Wind</h3><span class="panel-note" id="rp-att-src">—</span></div>
+          <div class="mini-kpis" id="rp-att"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Weather Brief</h3><span class="panel-note">simulated METAR · real winds aloft (FDR)</span></div>
+          <div id="rp-weather"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= REPLAY 3D ======================= -->
+  <section class="view" id="view-replay3d">
+    <div class="flightbar" id="r3-flightbar"></div>
+    <div class="panel" style="margin-top:12px">
+      <div class="panel-head">
+        <h3 id="r3-title">3D Flight Replay</h3>
+        <div class="replay-controls">
+          <button class="btn" id="r3-follow">Follow</button>
+          <button id="r3-play" class="btn-gold">Play</button>
+          <div class="speed-group" id="r3-speeds"></div>
+        </div>
+      </div>
+      <div id="cesium-container" class="map" style="height:560px"></div>
+      <div class="r3-hud" id="r3-hud"></div>
+    </div>
+  </section>
+
+  <!-- ======================= AIRCRAFT HEALTH ======================= -->
+  <section class="view" id="view-health">
+    <div class="health-hero panel">
+      <div class="hh-ring"><canvas id="hh-ring" width="170" height="170"></canvas>
+        <div class="hh-ring-val" id="hh-val">—</div></div>
+      <div class="hh-text">
+        <h2>Aircraft Health Index — <span id="hh-reg"></span></h2>
+        <p>Composite score across 8 ATA systems, computed from downlinked engine trends,
+        vibration, oil, APU duty cycle and utilization. <span class="sim-tag">health scores simulated for demo</span></p>
+        <div class="hh-chips" id="hh-chips"></div>
+      </div>
+    </div>
+    <div class="ahm-grid" id="ahm-grid"></div>
+  </section>
+
+  <!-- ======================= PREDICTIVE MAINTENANCE ======================= -->
+  <section class="view" id="view-pdm">
+    <div class="seg-group" id="pdm-seg" style="margin:0 0 14px;display:inline-flex"></div>
+    <div class="kpi-row" id="pdm-kpis"></div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><h3 id="pdm-main-title">Forecast</h3>
+        <span class="panel-note" id="pdm-main-note"></span></div>
+      <div class="chart-wrap tall"><canvas id="pdm-forecast"></canvas></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3 id="pdm-ctl-title">Control Chart</h3>
+          <span class="panel-note">EWMA · ±2.66σ control limits (SPC)</span></div>
+        <div class="chart-wrap"><canvas id="pdm-control"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>AeroBee Insight</h3>
+          <span class="panel-note">generated from the statistics · production: LLM narrative</span></div>
+        <div class="pdm-insight" id="pdm-insight"></div>
+      </div>
+    </div>
+    <div class="grid-2" id="pdm-engine-extras">
+      <div class="panel">
+        <div class="panel-head"><h3>Component Remaining Useful Life</h3>
+          <span class="panel-note">P50 / P90 estimates · simulated model output</span></div>
+        <div id="pdm-rul"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Maintenance Forecast — next 180 days</h3>
+          <span class="panel-note">AI-planned interventions, ranked by risk-cost</span></div>
+        <div class="pdm-timeline" id="pdm-timeline"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= T/O & LANDING PERFORMANCE ======================= -->
+  <section class="view" id="view-perf">
+    <div class="flightbar" id="pf-flightbar"></div>
+    <div class="kpi-row" id="pf-to-kpis" style="margin-top:12px"></div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Engine Signature — EGT vs N1 at takeoff</h3>
+          <span class="panel-note">recorded 8 Hz · both engines through the takeoff roll</span></div>
+        <div class="chart-wrap tall"><canvas id="pf-sig"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Approach Energy — CAS vs radio altitude</h3>
+          <span class="panel-note">final approach · target Vref+5</span></div>
+        <div class="chart-wrap tall"><canvas id="pf-energy"></canvas></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Touchdown Dispersion — fleet context</h3>
+          <span class="panel-note">grey = simulated fleet history · marked = this aircraft, recorded</span></div>
+        <div class="chart-wrap tall"><canvas id="pf-td"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Landing & Rollout Scorecard</h3><span class="panel-note" id="pf-ldg-note"></span></div>
+        <div class="mini-kpis" id="pf-ldg" style="grid-template-columns:repeat(2,1fr)"></div>
+        <div class="td-verdict" id="pf-verdict" style="margin-top:12px"></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><h3>Why this matters — the economics</h3>
+        <span class="panel-note">industry benchmarks · Flight Safety Foundation, MRO market research</span></div>
+      <div class="savings-grid" id="pf-value"></div>
+    </div>
+  </section>
+
+  <!-- ======================= ENGINE ======================= -->
+  <section class="view" id="view-engine">
+    <div class="kpi-row" id="en-kpis"></div>
+    <div class="panel">
+      <div class="panel-head"><h3>Takeoff EGT Trend — 22 months, every departure</h3>
+        <span class="panel-note">divergence between engines is the earliest deterioration signal</span></div>
+      <div class="chart-wrap tall"><canvas id="en-trend"></canvas></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Engine 1 − Engine 2 EGT Delta</h3><span class="panel-note">at takeoff power</span></div>
+        <div class="chart-wrap"><canvas id="en-delta"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Oil & Vibration by Phase</h3></div>
+        <table class="tbl" id="en-oil"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FUEL ======================= -->
+  <section class="view" id="view-fuel">
+    <div class="flightbar" id="fu-flightbar"></div>
+    <div class="kpi-row" id="fu-kpis" style="margin-top:12px"></div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><h3 id="fu-profile-title">Fuel Profile — selected flight</h3>
+        <span class="panel-note" id="fu-profile-note"></span></div>
+      <div class="chart-wrap"><canvas id="fu-profile"></canvas></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Fuel Burn by Phase</h3><span class="panel-note">OERK→OENN→OERK · 10 Aug 2021</span></div>
+        <div class="chart-wrap"><canvas id="fu-phase"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Fuel Flow vs Altitude</h3><span class="panel-note">both engines, snapshot data</span></div>
+        <div class="chart-wrap"><canvas id="fu-ff"></canvas></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>CO₂ &amp; CORSIA Reporting</h3><span class="panel-note">from measured fuel burn · ICAO 3.16 kg CO₂/kg fuel</span></div>
+        <div class="chart-wrap"><canvas id="fu-co2"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Emissions Summary</h3><span class="panel-note" id="fu-co2-note"></span></div>
+        <div class="mini-kpis" id="fu-co2-kpis" style="grid-template-columns:repeat(2,1fr)"></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><h3>Savings Opportunities — computed from this aircraft's operation</h3>
+        <span class="panel-note" id="fu-savings-total"></span></div>
+      <div class="savings-grid" id="fu-savings"></div>
+    </div>
+  </section>
+
+  <!-- ======================= SAFETY ======================= -->
+  <section class="view" id="view-safety">
+    <div class="flightbar" id="sa-flightbar"></div>
+    <div class="kpi-row" id="sa-kpis" style="margin-top:12px"></div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Event Pareto — fleet FDM history</h3><span class="panel-note" id="sa-pareto-note"></span></div>
+        <div class="chart-wrap tall"><canvas id="sa-pareto"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>SMS Risk Matrix</h3><span class="panel-note">probability × severity · event count · classified via SMS table</span></div>
+        <div class="risk-matrix" id="sa-matrix"></div>
+        <div class="panel-note" style="margin-top:10px" id="sa-matrix-note"></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Stabilized Approach Analysis</h3><span class="panel-note" id="sa-app-note"></span></div>
+        <div class="chart-wrap tall"><canvas id="sa-approach"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Approach Gates & Touchdown</h3><span class="panel-note" id="sa-td-note"></span></div>
+        <div id="sa-touchdown"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Exceedance Report — FOQA / FDM</h3>
+        <span class="panel-note">click a row to replay that moment</span></div>
+      <table class="tbl" id="sa-events"></table>
+    </div>
+  </section>
+
+  <!-- ======================= REPORT ======================= -->
+  <section class="view" id="view-report">
+    <div class="report-toolbar panel">
+      <div class="flightbar compact" id="report-flightbar"></div>
+      <div class="toolbar-actions">
+        <button class="btn" id="report-csv">CSV</button>
+        <button class="btn" id="report-json">JSON</button>
+        <button class="btn-gold" onclick="window.print()">Print</button>
+      </div>
+    </div>
+    <div class="panel report-sheet" id="report-sheet"></div>
+  </section>
+
+  <!-- ======================= CONNECTORS / BEEHIVE ======================= -->
+  <section class="view" id="view-connectors">
+    <div class="panel bh-hero">
+      <h2>The Beehive — <span>one platform for all aviation data</span></h2>
+      <p>Aviation software is fragmented across dozens of siloed systems. The Beehive ingests them all,
+      vectorizes everything into one AI-native lakehouse, and serves grounded answers through RAG + LLM —
+      to pilots, engineers, dispatchers and executives.</p>
+    </div>
+    <div class="bh-pipeline">
+      <div class="bh-col">
+        <div class="bh-col-title">FRAGMENTED SOURCES</div>
+        <div id="bh-sources"></div>
+      </div>
+      <div class="bh-flow">
+        <svg viewBox="0 0 120 400" preserveAspectRatio="none"><g id="bh-lines-l"></g></svg>
+      </div>
+      <div class="bh-col bh-center">
+        <div class="bh-hex-wrap">
+          <svg viewBox="0 0 100 100" class="bh-hex"><polygon points="50 3 93 26 93 74 50 97 7 74 7 26" fill="none" stroke="#FFB300" stroke-width="3"/><polygon points="50 22 74 36 74 64 50 78 26 64 26 36" fill="rgba(255,179,0,.15)" stroke="#FFB300" stroke-width="2"/></svg>
+          <div class="bh-hex-label">THE BEEHIVE</div>
+        </div>
+        <div class="bh-stage">Ingest · Normalize · Unify</div>
+        <div class="bh-stage gold">Vectorize · Index · RAG</div>
+        <div class="bh-stage">LLM Reasoning Layer</div>
+      </div>
+      <div class="bh-flow">
+        <svg viewBox="0 0 120 400" preserveAspectRatio="none"><g id="bh-lines-r"></g></svg>
+      </div>
+      <div class="bh-col">
+        <div class="bh-col-title">VALUE DELIVERED</div>
+        <div id="bh-apps"></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Ask across every source at once</h3><span class="panel-note">the disruption in one query</span></div>
+        <div class="bh-demo" id="bh-demo"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>AI Technology Roadmap</h3><span class="panel-note">researched July 2026 — prototype candidates</span></div>
+        <div id="bh-roadmap"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= AI ======================= -->
+  <section class="view" id="view-ai">
+    <div class="ai-layout">
+      <div class="panel ai-panel">
+        <div class="panel-head"><h3>Ask AeroBee</h3>
+          <span class="panel-note">answers computed live from the demo fleet's flight data</span></div>
+        <div class="chat-scroll" id="chat"></div>
+        <div class="chips" id="ai-chips"></div>
+        <div class="chat-input-row">
+          <input id="chat-input" placeholder="e.g. Compare the two FDR flights">
+          <button class="btn-gold" id="chat-send">Send</button>
+        </div>
+      </div>
+      <div class="panel ai-side">
+        <div class="panel-head"><h3>How this works</h3></div>
+        <div class="ai-note">
+          <p><b>This demo</b> answers from a computed knowledge layer over the flight-data lakehouse — every number is derived from the demo fleet's data, not canned text.</p>
+          <p><b>In production</b>, the Beehive feeds an LLM through retrieval-augmented generation (RAG): live parameters, maintenance manuals, MELs, weather and historical fleet data — so pilots, engineers and executives can interrogate any flight in plain language.</p>
+          <p class="dim">Vision: The Beehive (platform) · The Bees (edge) · The Studio (AI apps)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="palette" class="palette-veil" hidden>
+  <div class="palette">
+    <input id="palette-input" placeholder="Jump to a view, load a flight, search events…">
+    <div class="palette-list" id="palette-list"></div>
+  </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="assets/js/data.js?v=11"></script>
+<script src="assets/js/fdr_data.js?v=11"></script>
+<script src="assets/js/ops_data.js?v=11"></script>
+<script src="assets/js/pdm_data.js?v=11"></script>
+<script src="assets/js/app.js?v=11"></script>
+
+</body>
+</html>

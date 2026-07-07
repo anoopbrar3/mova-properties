@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Overview — MOVA Properties</title>
+  <meta name="description" content="MOVA Properties investor overview — build-to-hold multifamily development in British Columbia.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#0C2033">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .brief-wrap { max-width: 900px; margin: 0 auto; padding: 40px 56px 80px; }
+    .brief-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 56px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--surface); z-index: 10;
+    }
+    .brief-toolbar .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.04em; }
+    .brief-toolbar .wordmark span { color: var(--white-oak); }
+    .brief-actions { display: flex; gap: 10px; }
+    .brief-hero { padding: 8px 0 36px; border-bottom: 2px solid var(--text); }
+    .brief-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-oak); margin-bottom: 16px; }
+    .brief-title { font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 500; line-height: 1.05; letter-spacing: -0.015em; color: var(--text); margin-bottom: 18px; }
+    .brief-lede { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--text-muted); max-width: 640px; }
+    .brief-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 36px 0; }
+    .brief-stat { background: var(--surface); padding: 22px 20px; }
+    .brief-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 400; color: var(--navy); line-height: 1; margin-bottom: 6px; }
+    .brief-stat-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .brief-section { margin: 40px 0; }
+    .brief-h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .brief-p { font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--text); margin-bottom: 14px; }
+    table.brief-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    table.brief-table th { text-align: left; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: 10px 12px; border-bottom: 1px solid var(--text); }
+    table.brief-table td { padding: 12px; border-bottom: 1px solid var(--border); font-weight: 300; }
+    table.brief-table td strong { font-weight: 500; }
+    table.brief-table tr.total td { font-weight: 500; background: var(--surface-warm); }
+    .brief-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .brief-list { list-style: none; padding: 0; margin: 0; }
+    .brief-list li { font-size: 13.5px; font-weight: 300; line-height: 1.7; color: var(--text); padding: 8px 0 8px 20px; position: relative; border-bottom: 1px dotted var(--border); }
+    .brief-list li::before { content: "—"; position: absolute; left: 0; color: var(--white-oak); }
+    .brief-list li strong { font-weight: 500; }
+    .brief-founder { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: start; }
+    .brief-founder img { width: 120px; height: 144px; object-fit: cover; object-position: center top; border: 1px solid var(--border); }
+    .brief-disclaimer { font-size: 10.5px; font-weight: 300; line-height: 1.7; color: var(--text-muted); margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .brief-contact { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; }
+    .brief-contact a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+    @media print {
+      .brief-toolbar, .no-print { display: none !important; }
+      .brief-wrap { padding: 0 12px; max-width: 100%; }
+      body { background: #fff; }
+      .brief-hero { padding-top: 0; }
+      .brief-section { margin: 22px 0; page-break-inside: avoid; }
+      .brief-founder { page-break-inside: avoid; }
+      a { color: var(--text) !important; }
+    }
+    @media (max-width: 720px) {
+      .brief-wrap, .brief-toolbar { padding-left: 24px; padding-right: 24px; }
+      .brief-title { font-size: 34px; }
+      .brief-stats { grid-template-columns: 1fr 1fr; }
+      .brief-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="brief-toolbar no-print">
+  <a href="index.html" class="wordmark" style="text-decoration:none;">MOVA <span>Properties</span></a>
+  <div class="brief-actions">
+    <button onclick="window.print()" class="btn-primary" style="cursor:pointer;">Download / Print PDF ↓</button>
+    <a href="contact.html" class="btn-secondary">Contact</a>
+  </div>
+</div>
+
+<div class="brief-wrap">
+
+  <div class="brief-hero">
+    <p class="brief-eyebrow">Investor Overview · Confidential</p>
+    <h1 class="brief-title">Designing income.<br>Building legacy.</h1>
+    <p class="brief-lede">MOVA Properties is a design-led, build-to-hold multifamily developer in British Columbia. We acquire, design, build, and operate purpose-built rental communities for the long term — financed through CMHC MLI Select and held for decades, not sold at completion.</p>
+  </div>
+
+  <div class="brief-stats">
+    <div class="brief-stat"><div class="brief-stat-val">$95M+</div><div class="brief-stat-lbl">Active Pipeline</div></div>
+    <div class="brief-stat"><div class="brief-stat-val">174</div><div class="brief-stat-lbl">Units in Portfolio</div></div>
+    <div class="brief-stat"><div class="brief-stat-val">100%</div><div class="brief-stat-lbl">Multifamily Focus</div></div>
+    <div class="brief-stat"><div class="brief-stat-val">10+ yr</div><div class="brief-stat-lbl">Hold Strategy</div></div>
+  </div>
+
+  <div class="brief-section">
+    <h2 class="brief-h2">Active Multifamily Portfolio</h2>
+    <table class="brief-table">
+      <thead>
+        <tr><th>Project</th><th>Location</th><th>Homes</th><th>Est. Value</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>The Arncote</strong></td><td>Langford, BC</td><td>21</td><td>$15M</td><td>Completed · 100% occupied</td></tr>
+        <tr><td><strong>The Hockley</strong></td><td>Langford, BC</td><td>75</td><td>$40M</td><td>Under construction · Draw 5/18</td></tr>
+        <tr><td><strong>The Goldstream</strong></td><td>Langford, BC</td><td>78</td><td>$40M</td><td>In development</td></tr>
+        <tr class="total"><td>Total</td><td></td><td>174</td><td>$95M+</td><td>On completion</td></tr>
+      </tbody>
+    </table>
+    <p class="brief-p" style="margin-top:14px;">Behind the multifamily pipeline sits a track record of <strong>41 homes delivered</strong>, including four luxury estate residences and nine single-family homes across BC and Alberta — the standard that shapes every rental building that follows.</p>
+  </div>
+
+  <div class="brief-section brief-cols">
+    <div>
+      <h2 class="brief-h2">Strategy</h2>
+      <ul class="brief-list">
+        <li><strong>Build-to-hold.</strong> We create value through development, then keep the asset to capture cash flow, amortisation, and appreciation over a 10+ year hold.</li>
+        <li><strong>One platform, four disciplines.</strong> MOVA acquires, designs, builds, and operates — no handoff, no agency gap between builder and owner.</li>
+        <li><strong>Design-led.</strong> Distinctive, durable buildings command rent premiums, lower vacancy, and retain residents — compounding NOI and value.</li>
+        <li><strong>Supply-constrained BC markets.</strong> Greater Victoria, Langford, and Greater Vancouver, where vacancy runs consistently below 2%.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="brief-h2">Returns & Financing</h2>
+      <ul class="brief-list">
+        <li><strong>CMHC MLI Select.</strong> Insured financing with high loan-to-cost and amortisations up to 50 years — reducing equity and rate exposure.</li>
+        <li><strong>Yield-on-cost.</strong> Stabilised targets in the 5–7% range, with equity appreciation layered through design and operational discipline.</li>
+        <li><strong>Multiple return engines.</strong> Development margin, refinance, cash flow, amortisation, and appreciation — not a single exit.</li>
+        <li><strong>Conservative underwriting.</strong> Every project stress-tested against lower rents, higher costs, and longer timelines.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="brief-section">
+    <h2 class="brief-h2">Leadership</h2>
+    <div class="brief-founder">
+      <img src="images/Anoop%20Brar%20Headshot.jpg" alt="Anoop Brar">
+      <div>
+        <p class="brief-p" style="margin-bottom:6px;"><strong>Anoop Brar</strong> — Founder &amp; Principal</p>
+        <p class="brief-p">Anoop founded MOVA to bring together the disciplines that shape enduring real estate: finance, design, construction, and long-term ownership. His background spans engineering, an MBA, technology consulting at KPMG, interim CEO leadership at a public technology company, and hands-on development across luxury homes, small multifamily, and purpose-built rental. He is directly involved in acquisition, underwriting, capital structure, design, construction oversight, and asset strategy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="brief-section">
+    <h2 class="brief-h2">Get in Touch</h2>
+    <p class="brief-p">We are selectively expanding our investor relationships with partners who share a long-term view. To discuss current opportunities:</p>
+    <div class="brief-contact">
+      <span>✉ <a href="mailto:anoopbrar@gmail.com">anoopbrar@gmail.com</a></span>
+      <span>in <a href="https://www.linkedin.com/company/mova-properties-corporation/" target="_blank" rel="noopener">MOVA Properties</a></span>
+      <span>◷ Vancouver, British Columbia</span>
+      <span>⌂ <a href="https://www.movaproperties.ca">movaproperties.ca</a></span>
+    </div>
+  </div>
+
+  <p class="brief-disclaimer">This document is provided for informational purposes only and does not constitute an offer to sell, or a solicitation of an offer to buy, securities or any other investment in any jurisdiction. Any investment opportunity will be made only to qualified investors through definitive documentation, in accordance with applicable Canadian securities laws. Figures including projected portfolio values, target returns, and timelines are forward-looking and subject to construction, financing, market, and regulatory risks; actual outcomes may differ materially. Past performance is not a guarantee of future results. © 2026 MOVA Properties Corporation.</p>
+
+</div>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

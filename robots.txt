@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /project-template.html
+Disallow: /aerobee-d7931a0a/
+Disallow: /investor-brief.html
+Disallow: /investor-access.html
 
 Sitemap: https://www.movaproperties.ca/sitemap.xml
