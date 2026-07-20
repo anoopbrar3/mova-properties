@@ -2182,6 +2182,59 @@ h1, h2, h3, h4, h5 {
   background: var(--warm-beige);
 }
 
+/* ── Insight list rows (photo + text, stacked) ──────────────────── */
+.insight-list {
+  border-bottom: 1px solid var(--border);
+}
+.insight-row {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  background: var(--surface);
+  overflow: hidden;
+  min-height: 240px;
+  transition: background 0.18s ease;
+}
+.insight-row.row-flip {
+  grid-template-columns: 1fr 300px;
+}
+.insight-row.row-flip .insight-row-photo { order: 2; }
+.insight-row.row-flip .insight-row-body  { order: 1; }
+.insight-row:hover { background: var(--surface-warm); }
+.insight-row-photo {
+  overflow: hidden;
+  background: var(--warm-beige);
+}
+.insight-row-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+}
+.insight-row:hover .insight-row-photo img { transform: scale(1.05); }
+.insight-row-body {
+  padding: 36px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.insight-row-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 18px;
+  transition: gap 0.22s ease;
+}
+.insight-row:hover .insight-row-cta { gap: 16px; }
+
 /* ── Design Page ─────────────────────────────────────────────────── */
 .design-principle-grid {
   display: grid;
@@ -2647,6 +2700,12 @@ h1, h2, h3, h4, h5 {
   .construction-highlight-right { grid-template-columns: 1fr 1fr; }
   .journal-grid { grid-template-columns: 1fr; }
   .journal-card { border-right: none; }
+  .insight-row,
+  .insight-row.row-flip { grid-template-columns: 1fr; min-height: auto; }
+  .insight-row.row-flip .insight-row-photo { order: 0; }
+  .insight-row.row-flip .insight-row-body  { order: 0; }
+  .insight-row-photo { min-height: 220px; }
+  .insight-row-body { padding: 28px 32px; }
   .design-photo-strip { grid-template-columns: 1fr 1fr; }
   .design-manifesto-band { padding: 56px 28px; }
   .design-principle { padding: 40px 28px; }
