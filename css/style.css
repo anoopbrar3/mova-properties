@@ -2182,58 +2182,61 @@ h1, h2, h3, h4, h5 {
   background: var(--warm-beige);
 }
 
-/* ── Insight list rows (photo + text, stacked) ──────────────────── */
-.insight-list {
+/* ── Insight card grid ───────────────────────────────────────────── */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
   border-bottom: 1px solid var(--border);
 }
-.insight-row {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  border-bottom: 1px solid var(--border);
+.insight-card {
+  background: var(--surface);
   text-decoration: none;
   color: inherit;
-  background: var(--surface);
-  overflow: hidden;
-  min-height: 240px;
+  display: flex;
+  flex-direction: column;
   transition: background 0.18s ease;
 }
-.insight-row.row-flip {
-  grid-template-columns: 1fr 300px;
-}
-.insight-row.row-flip .insight-row-photo { order: 2; }
-.insight-row.row-flip .insight-row-body  { order: 1; }
-.insight-row:hover { background: var(--surface-warm); }
-.insight-row-photo {
+.insight-card:hover { background: var(--surface-warm); }
+.insight-card-photo {
+  aspect-ratio: 3/2;
   overflow: hidden;
   background: var(--warm-beige);
+  flex-shrink: 0;
 }
-.insight-row-photo img {
+.insight-card-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.55s ease;
 }
-.insight-row:hover .insight-row-photo img { transform: scale(1.05); }
-.insight-row-body {
-  padding: 36px 52px;
+.insight-card:hover .insight-card-photo img { transform: scale(1.05); }
+.insight-card-body {
+  padding: 28px 30px 32px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  flex: 1;
 }
-.insight-row-cta {
-  display: inline-flex;
+.insight-card-footer {
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.insight-card-read {
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-top: 18px;
-  transition: gap 0.22s ease;
+  white-space: nowrap;
+  transition: letter-spacing 0.2s ease;
 }
-.insight-row:hover .insight-row-cta { gap: 16px; }
+.insight-card:hover .insight-card-read { letter-spacing: 0.2em; }
 
 /* ── Design Page ─────────────────────────────────────────────────── */
 .design-principle-grid {
@@ -2635,6 +2638,12 @@ h1, h2, h3, h4, h5 {
   .multifamily-trio { grid-template-columns: 1fr; }
   .luxury-grid { grid-template-columns: 1fr; }
 }
+@media (min-width: 640px) {
+  .insight-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1100px) {
+  .insight-grid { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* ── Responsive: showcase + proj sections ────────────────────────── */
 @media (max-width: 900px) {
@@ -2700,12 +2709,8 @@ h1, h2, h3, h4, h5 {
   .construction-highlight-right { grid-template-columns: 1fr 1fr; }
   .journal-grid { grid-template-columns: 1fr; }
   .journal-card { border-right: none; }
-  .insight-row,
-  .insight-row.row-flip { grid-template-columns: 1fr; min-height: auto; }
-  .insight-row.row-flip .insight-row-photo { order: 0; }
-  .insight-row.row-flip .insight-row-body  { order: 0; }
-  .insight-row-photo { min-height: 220px; }
-  .insight-row-body { padding: 28px 32px; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .insight-card-body { padding: 22px 24px 28px; }
   .design-photo-strip { grid-template-columns: 1fr 1fr; }
   .design-manifesto-band { padding: 56px 28px; }
   .design-principle { padding: 40px 28px; }
