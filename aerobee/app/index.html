@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="day">
+<html lang="en" data-theme="dusk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,10 +66,10 @@ nav .sp{flex:1}
 .nl{font-size:14px;color:var(--mute);transition:color .2s}
 .nl:hover{color:var(--text)}
 @media(max-width:1000px){.nl{display:none}}
-.tsw{display:flex;padding:2px;border:1px solid var(--line);border-radius:100px;background:var(--bg-alt)}
-.tsw button{display:grid;place-items:center;width:28px;height:26px;border-radius:100px;color:var(--faint);transition:.25s}
+.tsw{position:fixed;bottom:22px;right:22px;z-index:300;display:flex;padding:2px;border:1px solid var(--line-2);border-radius:100px;background:var(--surface);box-shadow:0 2px 12px rgba(0,0,0,.28)}
+.tsw button{display:grid;place-items:center;width:30px;height:28px;border-radius:100px;color:var(--faint);transition:.25s}
 .tsw button svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.7;fill:none}
-.tsw button.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tsw button.on{background:var(--surface2);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.18)}
 .btn-sm{font-size:14px;font-weight:500;padding:8px 16px;border-radius:100px;background:var(--text);color:var(--bg);transition:opacity .25s}
 .btn-sm:hover{opacity:.85}
 @media(max-width:600px){.btn-sm{display:none}}
@@ -379,6 +379,35 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border:1px solid var(
 .path h4{font-size:19px;font-weight:600;letter-spacing:-.022em;margin-bottom:9px}
 .path p{font-size:14.5px;color:var(--mute);line-height:1.56;flex:1}
 .path .go{margin-top:20px;font-size:14.5px;font-weight:500;color:var(--blue)}
+/* ══════════════ live demo band ══════════════ */
+.ldemo{padding:clamp(80px,9vw,120px) 0;background:var(--bg-alt)}
+.ldemo-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media(max-width:860px){.ldemo-inner{grid-template-columns:1fr}}
+.ldemo-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--honey-ink);margin-bottom:14px}
+.ldemo-h{font-size:clamp(26px,3.5vw,40px);font-weight:700;letter-spacing:-.032em;line-height:1.1;margin-bottom:16px}
+.ldemo-body{font-size:clamp(15px,1.5vw,17px);color:var(--mute);line-height:1.6;margin-bottom:28px}
+.ldemo-specs{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.ldemo-spec{display:flex;align-items:flex-start;gap:11px;font-size:13.5px;color:var(--mute)}
+.ldemo-spec::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--ok);flex-shrink:0;margin-top:6px}
+.ldemo-btn{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;padding:15px 28px;border-radius:100px;background:var(--honey);color:#1a1100;transition:transform .25s,box-shadow .25s;text-decoration:none}
+.ldemo-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px rgba(227,166,44,.55)}
+.ldemo-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0}
+.ldemo-screen{border:1px solid var(--line-2);border-radius:18px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow-lg)}
+.ldemo-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface2)}
+.ldemo-bar .dot{width:8px;height:8px;border-radius:50%}
+.ldemo-bar .dot:nth-child(1){background:#FF5F57}
+.ldemo-bar .dot:nth-child(2){background:#FFBD2E}
+.ldemo-bar .dot:nth-child(3){background:#28C840}
+.ldemo-bar .url{margin-left:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint);background:var(--bg-alt);border:1px solid var(--line);border-radius:6px;padding:3px 10px}
+.ldemo-preview{padding:18px;display:flex;flex-direction:column;gap:10px}
+.ldemo-row{height:10px;border-radius:4px;background:var(--line)}
+.ldemo-row.w60{width:60%}
+.ldemo-row.w80{width:80%}
+.ldemo-row.w45{width:45%}
+.ldemo-row.w70{width:70%}
+.ldemo-chart{height:80px;border-radius:8px;background:var(--surface2);border:1px solid var(--line);display:flex;align-items:flex-end;gap:4px;padding:10px;margin-top:4px}
+.ldemo-bar2{border-radius:3px 3px 0 0;background:var(--blue-soft);border:1px solid var(--blue-line);flex:1}
+.ldemo-tag{display:inline-block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;border-radius:100px;padding:3px 9px;color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 40%,transparent);background:color-mix(in srgb,var(--ok) 8%,transparent);width:fit-content}
 .close{text-align:center;padding:clamp(84px,10vw,132px) 0}
 .close .h2{max-width:22ch;margin:0 auto}
 .close .lead{margin:20px auto 0;max-width:50ch}
@@ -407,12 +436,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
   <a class="nl" href="#features">Features</a>
   <a class="nl" href="#who">Who it's for</a>
   <a class="nl" href="#platform">Platform</a>
-  <div class="tsw" id="tsw" role="group" aria-label="Theme">
-    <button data-t="day" class="on" aria-label="Day theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></button>
-    <button data-t="dusk" aria-label="Dusk theme"><svg viewBox="0 0 24 24"><path d="M20.5 14.8A8.5 8.5 0 0 1 9.2 3.5 8.5 8.5 0 1 0 20.5 14.8Z"/></svg></button>
-  </div>
-  <a class="btn-sm" href="#demo">See it answer</a>
+  <a class="nl" href="#live-demo" style="color:var(--honey-ink);font-weight:500">Live demo</a>
+  <a class="btn-sm" href="#live-demo">Open dashboard</a>
 </div></nav>
+
+<div class="tsw" id="tsw" role="group" aria-label="Theme">
+  <button data-t="day" aria-label="Day theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></button>
+  <button data-t="dusk" class="on" aria-label="Dusk theme"><svg viewBox="0 0 24 24"><path d="M20.5 14.8A8.5 8.5 0 0 1 9.2 3.5 8.5 8.5 0 1 0 20.5 14.8Z"/></svg></button>
+</div>
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="top"><div class="shell hero-in">
@@ -782,6 +813,54 @@ footer{border-top:1px solid var(--line);padding:44px 0 56px}
     <div class="path"><p class="pk">For universities and research programmes</p><h4>Work on the hard part</h4>
       <p>Verifying that a language model's output is grounded in approved technical data is an open research problem with real safety consequences. We're building the evaluation harness for it.</p>
       <p class="go">Explore a collaboration →</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ LIVE DEMO ═══════════ -->
+<section class="ldemo" id="live-demo"><div class="shell">
+  <div class="ldemo-inner">
+    <div class="ldemo-copy rv">
+      <p class="ldemo-label">Interactive dashboard</p>
+      <h2 class="ldemo-h">See the platform working on real aircraft data</h2>
+      <p class="ldemo-body">The dashboard below is the live AeroBee operational interface, running against actual flight recorder data from a real A310-300 (HZ-NSA). Fleet view, flight analysis, parameter trends, and the conversational query layer — all connected.</p>
+      <div class="ldemo-specs">
+        <div class="ldemo-spec">Real FDR decode — A310-300 HZ-NSA, ISMS flight data</div>
+        <div class="ldemo-spec">Fleet view with live departure and arrival tracking</div>
+        <div class="ldemo-spec">Engine parameter trends with control-limit overlays</div>
+        <div class="ldemo-spec">Conversational query interface with cited responses</div>
+      </div>
+      <a class="ldemo-btn rv" href="/aerobee-d7931a0a/" target="_blank" rel="noopener">
+        Open live dashboard
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+
+    <div class="ldemo-screen rv">
+      <div class="ldemo-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="url">aerobee · fleet operations</span>
+      </div>
+      <div class="ldemo-preview">
+        <div class="ldemo-row w60"></div>
+        <div class="ldemo-row w80"></div>
+        <div class="ldemo-chart">
+          <div class="ldemo-bar2" style="height:55%"></div>
+          <div class="ldemo-bar2" style="height:62%"></div>
+          <div class="ldemo-bar2" style="height:48%"></div>
+          <div class="ldemo-bar2" style="height:71%"></div>
+          <div class="ldemo-bar2" style="height:58%"></div>
+          <div class="ldemo-bar2" style="height:80%"></div>
+          <div class="ldemo-bar2" style="height:65%"></div>
+          <div class="ldemo-bar2" style="height:74%"></div>
+          <div class="ldemo-bar2" style="height:69%"></div>
+          <div class="ldemo-bar2" style="height:88%"></div>
+        </div>
+        <div class="ldemo-row w45"></div>
+        <div class="ldemo-tag">17 claims · 17 cited · 0 uncited</div>
+        <div class="ldemo-row w70"></div>
+        <div class="ldemo-row w60"></div>
+      </div>
+    </div>
   </div>
 </div></section>
 
