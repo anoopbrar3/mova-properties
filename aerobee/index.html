@@ -208,7 +208,7 @@ async function sha256(str){
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-if(sessionStorage.getItem('ab_auth')==='1'){
+if(localStorage.getItem('ab_auth')==='1'){
   location.replace('/aerobee/app/');
 }
 
@@ -223,7 +223,7 @@ form.onsubmit=async(e)=>{
   err.classList.remove('on');
   const h=await sha256(pw.value.trim());
   if(h===HASH){
-    sessionStorage.setItem('ab_auth','1');
+    localStorage.setItem('ab_auth','1');
     location.replace('/aerobee/app/');
   } else {
     err.classList.add('on');
