@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AeroBee — The decision window</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══ tokens — identical to aerobee_v4.html so this drops straight in ═══ */
+html[data-theme="day"]{
+  --bg:#FFFFFF; --bg-alt:#F5F6F8; --surface:#FFFFFF; --surface2:#FAFBFC;
+  --line:rgba(18,22,32,.10); --line-2:rgba(18,22,32,.16);
+  --text:#14181F; --mute:#5C6472; --faint:#8A91A0;
+  --blue:#4663B3; --blue-soft:rgba(70,99,179,.07); --blue-line:rgba(70,99,179,.28);
+  --honey:#E3A62C; --honey-ink:#9C6E12; --honey-soft:rgba(227,166,44,.13); --honey-line:rgba(227,166,44,.42);
+  --ok:#2E9E6B; --warn:#D2542F; --warn-soft:rgba(210,84,47,.10);
+  --shadow:0 1px 2px rgba(18,22,32,.04),0 12px 32px -12px rgba(18,22,32,.12);
+  --shadow-lg:0 2px 4px rgba(18,22,32,.04),0 30px 70px -30px rgba(18,22,32,.22);
+}
+html[data-theme="dusk"]{
+  --bg:#12131A; --bg-alt:#171922; --surface:#1B1D27; --surface2:#20232E;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.17);
+  --text:#F2F4F8; --mute:#9AA2B4; --faint:#6A7285;
+  --blue:#8098DE; --blue-soft:rgba(128,152,222,.13); --blue-line:rgba(128,152,222,.34);
+  --honey:#F3B944; --honey-ink:#F3B944; --honey-soft:rgba(243,185,68,.13); --honey-line:rgba(243,185,68,.38);
+  --ok:#4CD69B; --warn:#FF7A55; --warn-soft:rgba(255,122,85,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.5);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 30px 70px -30px rgba(0,0,0,.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:17px;
+  line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .45s,color .45s}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+svg{display:block}
+
+/* ═══ section shell ═══ */
+.dw-band{padding:clamp(70px,9vw,120px) 0}
+.dw-shell{max-width:1140px;margin:0 auto;padding:0 32px}
+@media(max-width:640px){.dw-shell{padding:0 20px}}
+.dw-eyebrow{font-size:13px;font-weight:600;color:var(--blue)}
+.dw-h2{font-size:clamp(30px,4.2vw,48px);font-weight:700;letter-spacing:-.032em;line-height:1.08;margin-top:14px;max-width:24ch}
+.dw-lead{font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:var(--mute);margin-top:18px;max-width:60ch}
+.dw-lead b{color:var(--text);font-weight:500}
+
+/* theme toggle (demo only — remove when embedding) */
+.dw-tsw{position:fixed;top:18px;right:22px;z-index:50;display:flex;padding:2px;border:1px solid var(--line);
+  border-radius:100px;background:var(--bg-alt)}
+.dw-tsw button{display:grid;place-items:center;width:28px;height:26px;border-radius:100px;color:var(--faint)}
+.dw-tsw button svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.7;fill:none}
+.dw-tsw button.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+
+/* ═══ flight strip ═══ */
+.fw{margin-top:44px;border:1px solid var(--line);border-radius:22px;background:var(--surface);
+  box-shadow:var(--shadow-lg);overflow:hidden}
+.fw-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid var(--line);
+  background:var(--surface2)}
+.fw-tail{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--mute)}
+.fw-tail b{color:var(--text);font-weight:500}
+.fw-alert{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+  color:var(--warn);border:1px solid var(--warn);border-radius:100px;padding:4px 11px;background:var(--warn-soft);
+  opacity:0;transition:opacity .4s}
+.fw-alert.on{opacity:1}
+.fw-alert i{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:0 0 auto}
+@media (prefers-reduced-motion:no-preference){.fw-alert.on i{animation:pl 1.5s ease-in-out infinite}}
+@keyframes pl{0%,100%{box-shadow:0 0 0 0 var(--warn-soft)}50%{box-shadow:0 0 0 6px transparent}}
+.fw-clock{margin-left:auto;text-align:right}
+.fw-clock .cl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.fw-clock .cv{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.fw-clock .cv.hot{color:var(--warn)}
+
+/* flight path */
+.fw-path{padding:8px 12px 0;background:var(--surface2)}
+.fp{width:100%;height:auto}
+.fp text{font-family:'IBM Plex Mono',monospace;fill:var(--faint);font-size:9.5px}
+.fp .route{stroke:var(--line-2);stroke-width:1.5;fill:none;stroke-dasharray:4 4}
+.fp .flown{stroke:var(--blue);stroke-width:2.6;fill:none;stroke-linecap:round}
+.fp .ac{fill:var(--blue)}
+.fp .mk{fill:var(--warn)}
+.fp .win{fill:var(--honey-soft);stroke:var(--honey-line);stroke-width:1}
+.fp .wlbl{fill:var(--honey-ink);font-size:10px;font-weight:500}
+
+/* lanes */
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+@media(max-width:800px){.lanes{grid-template-columns:1fr}}
+.lane{background:var(--surface);padding:22px 22px 26px}
+.lane-h{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.lane-h .ln{font-size:15px;font-weight:600;letter-spacing:-.015em}
+.lane-h .lt{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint)}
+.lane.old .ln{color:var(--warn)}
+.lane.new .ln{color:var(--blue)}
+.evt{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);opacity:.28;
+  transition:opacity .45s ease,transform .45s ease;transform:translateY(6px)}
+.evt.on{opacity:1;transform:none}
+.evt:last-child{border-bottom:none}
+.evt .t{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);min-width:52px;padding-top:3px;white-space:nowrap}
+.evt.on .t{color:var(--mute)}
+.evt .b{flex:1}
+.evt .b p{font-size:14.5px;line-height:1.5;color:var(--mute)}
+.evt .b p b{color:var(--text);font-weight:500}
+.evt .tagr{display:inline-block;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.06em;text-transform:uppercase;border-radius:100px;padding:3px 9px}
+.evt .tagr.wait{color:var(--warn);border:1px solid var(--warn);background:var(--warn-soft)}
+.evt .tagr.act{color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 45%,transparent);background:color-mix(in srgb,var(--ok) 9%,transparent)}
+.evt .tagr.cite{color:var(--blue);border:1px solid var(--blue-line);background:var(--blue-soft)}
+
+/* outcome */
+.fw-out{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+@media(max-width:800px){.fw-out{grid-template-columns:1fr}}
+.oc{background:var(--surface2);padding:20px 22px}
+.oc .ok2{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.oc .ov{font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.028em;margin-top:6px;line-height:1.15}
+.oc.old .ov{color:var(--warn)}
+.oc.new .ov{color:var(--ok)}
+.oc .os{font-size:13.5px;color:var(--mute);margin-top:6px}
+
+/* controls */
+.fw-ctl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 22px;border-top:1px solid var(--line)}
+.btn-run{font-size:15px;font-weight:500;padding:12px 24px;border-radius:100px;background:var(--blue);color:#fff;
+  transition:transform .25s,box-shadow .25s,opacity .25s}
+.btn-run:hover{transform:translateY(-2px);box-shadow:0 12px 28px -12px var(--blue)}
+.btn-run:disabled{opacity:.45;transform:none;box-shadow:none;cursor:default}
+.btn-rst{font-size:14.5px;font-weight:500;padding:11px 20px;border-radius:100px;border:1px solid var(--line-2)}
+.btn-rst:hover{background:var(--bg-alt)}
+.spd{display:flex;align-items:center;gap:8px;margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+.spd button{padding:5px 10px;border:1px solid var(--line);border-radius:100px;font-size:11px}
+.spd button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* the pitch */
+.pitch{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:44px}
+.pc2{border:1px solid var(--line);border-radius:18px;padding:26px 24px;background:var(--surface)}
+.pc2.acc{border-color:var(--honey-line);background:linear-gradient(170deg,var(--honey-soft),var(--surface) 65%)}
+.pc2 .pk2{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.pc2.acc .pk2{color:var(--honey-ink)}
+.pc2 h4{font-size:18px;font-weight:600;letter-spacing:-.022em;margin-bottom:9px}
+.pc2 p{font-size:14.5px;color:var(--mute);line-height:1.56}
+.note{margin-top:34px;padding:18px 22px;border-radius:14px;border:1px solid var(--line);background:var(--surface2);max-width:78ch}
+.note p{font-size:13.5px;color:var(--faint);line-height:1.65}
+.note b{color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<script>(()=>{if(sessionStorage.getItem('ab_auth')!=='1')location.replace('/aerobee/')})()</script>
+
+<div class="dw-tsw" id="tsw">
+  <button data-t="day" class="on" aria-label="Day"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></button>
+  <button data-t="dusk" aria-label="Dusk"><svg viewBox="0 0 24 24"><path d="M20.5 14.8A8.5 8.5 0 0 1 9.2 3.5 8.5 8.5 0 1 0 20.5 14.8Z"/></svg></button>
+</div>
+
+<!-- ═══════════ THE DECISION WINDOW ═══════════ -->
+<section class="dw-band" id="window"><div class="dw-shell">
+  <p class="dw-eyebrow">Connected aircraft</p>
+  <h2 class="dw-h2">Live data doesn't make a decision. It opens a window.</h2>
+  <p class="dw-lead">A connected aircraft tells you something is wrong while it's still in the air. That's genuinely valuable — but only if something uses the time. <b>Most operators still start troubleshooting at the gate,</b> which means the warning arrives hours before anyone acts on it. AeroBee is what goes inside the window.</p>
+
+  <div class="fw">
+    <div class="fw-top">
+      <span class="fw-tail">Tail <b>C-GVBR</b> · A320-214 · <b>AB123</b> Calgary to Vancouver · cruise FL370</span>
+      <span class="fw-alert" id="alertBadge"><i></i> HYD-G-PRESS-EXC-02</span>
+      <span class="fw-clock"><span class="cl">Wheels down in</span><span class="cv" id="clock">47:00</span></span>
+    </div>
+
+    <div class="fw-path">
+      <svg class="fp" viewBox="0 0 700 132" role="img" aria-label="Flight profile with the decision window marked">
+        <path class="route" d="M40 104 C 150 104, 170 30, 340 30 S 540 30, 660 104"/>
+        <path class="flown" id="flown" d="M40 104 C 150 104, 170 30, 340 30" stroke-dasharray="900" stroke-dashoffset="900"/>
+        <rect class="win" id="winRect" x="392" y="14" width="248" height="30" rx="6" opacity="0"/>
+        <text class="wlbl" id="winLbl" x="516" y="33" text-anchor="middle" opacity="0">47-minute decision window</text>
+        <circle class="mk" id="alertPt" cx="392" cy="30" r="0"/>
+        <text id="alertTxt" x="392" y="60" text-anchor="middle" opacity="0">alert transmitted</text>
+        <g id="acraft" transform="translate(40,104)" opacity="0">
+          <path class="ac" d="M0-5 L12 0 L0 5 L3 0 Z"/>
+        </g>
+        <text x="40" y="122" text-anchor="start">CYYC</text>
+        <text x="660" y="122" text-anchor="end">CYVR</text>
+      </svg>
+    </div>
+
+    <div class="lanes">
+      <div class="lane old">
+        <div class="lane-h"><span class="ln">Without AeroBee</span><span class="lt">triage begins at the gate</span></div>
+        <div id="laneA"></div>
+      </div>
+      <div class="lane new">
+        <div class="lane-h"><span class="ln">With AeroBee</span><span class="lt">triage begins in the air</span></div>
+        <div id="laneB"></div>
+      </div>
+    </div>
+
+    <div class="fw-out">
+      <div class="oc old"><p class="ok2">Aircraft released</p><p class="ov" id="outA">—</p><p class="os" id="outAs">Run the scenario to compare.</p></div>
+      <div class="oc new"><p class="ok2">Aircraft released</p><p class="ov" id="outB">—</p><p class="os" id="outBs">Same alert, same aircraft, same crew.</p></div>
+    </div>
+
+    <div class="fw-ctl">
+      <button class="btn-run" id="run">Run the scenario</button>
+      <button class="btn-rst" id="rst">Reset</button>
+      <span class="spd">Speed
+        <button data-s="1" class="on">1×</button>
+        <button data-s="3">3×</button>
+        <button data-s="8">8×</button>
+      </span>
+    </div>
+  </div>
+
+  <div class="pitch">
+    <div class="pc2">
+      <p class="pk2">What the data partner brings</p>
+      <h4>The aircraft connection</h4>
+      <p>Onboard acquisition from the aircraft data buses, analysis in the air, and transmission of alerts and key parameters to the ground while the aircraft is still flying. This is hard, certified engineering, and it is not what AeroBee does.</p>
+    </div>
+    <div class="pc2 acc">
+      <p class="pk2">What AeroBee brings</p>
+      <h4>The decision inside the window</h4>
+      <p>The alert becomes a cited response plan: probable cause ranked against this tail's own history, the applicable manual procedure, the technician qualification needed, tooling, and candidate parts at the arrival station.</p>
+    </div>
+    <div class="pc2">
+      <p class="pk2">Why it needs both</p>
+      <h4>Neither half works alone</h4>
+      <p>Telemetry without an intelligence layer is a notification. An intelligence layer without live telemetry is a post-flight report. Together they convert flight time into preparation time — which is the only place the money is.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <p><b>About this scenario.</b> Simulated for illustration using a representative A320 hydraulic event, with timings drawn from typical line-maintenance practice rather than a specific operator. Both lanes assume the same alert, aircraft, crew and station. Real figures depend on your fleet, your stations and your data latency, and would be measured during a pilot rather than asserted here. AeroBee is advisory software: it locates evidence and flags where it's missing, and every recommendation shown would be reviewed by authorised personnel who retain full decision authority.</p>
+  </div>
+</div></section>
+
+<script>
+/* theme */
+const root=document.documentElement,tsw=document.getElementById('tsw');
+tsw.querySelectorAll('button').forEach(b=>b.onclick=()=>{root.setAttribute('data-theme',b.dataset.t);
+  tsw.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));});
+
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s);
+
+/* ═══ scenario data · t = minutes before wheels-down ═══ */
+const LANE_A=[
+ [47,'Alert transmitted to the ground. <b>Nobody is watching the feed</b> — maintenance control is handling two other aircraft.','wait'],
+ [22,'Crew reports the caution to dispatch on descent. First human awareness of the event.','wait'],
+ [0,'Aircraft parks. <b>Troubleshooting starts now</b>, from a blank page.','wait'],
+ [-14,'Technician located and assigned. Manual set opened, correct revision confirmed.','wait'],
+ [-31,'Historical records searched by hand. A similar event is found — eventually.','wait'],
+ [-58,'Part identified. <b>Not in stock at this station.</b> Sourcing begins.','wait'],
+ [-192,'Part arrives from another station. Work begins.','wait']
+];
+const LANE_B=[
+ [47,'Alert received. AeroBee begins retrieval automatically — <b>no human trigger needed</b>.','act'],
+ [44,'Pressure trend matched against this tail\'s own history. <b>Same signature, 4 Nov 2025</b>, rectified by filter replacement.','cite'],
+ [43,'Manual procedure retrieved for <b>this aircraft\'s configuration</b> and revision. Cited to the paragraph.','cite'],
+ [42,'Candidate parts checked at destination: <b>filter in stock, pump available</b>. Both reserved.','cite'],
+ [41,'Decision card delivered to maintenance control. <b>17 claims, 17 sources, none unverified.</b>','cite'],
+ [36,'Controller reviews and accepts. Technician with the right authorisation assigned to the arrival gate.','act'],
+ [12,'Tooling and parts staged at the gate <b>before the aircraft is on the ground</b>.','act'],
+ [0,'Aircraft parks. Work begins immediately.','act']
+];
+const fmt=t=>{const a=Math.abs(t);const s=Math.floor(a),m=Math.round((a-s)*60);
+ return (t<0?'+':'')+String(s).padStart(2,'0')+':'+String(m).padStart(2,'0');};
+function lbl(t){return t>0?'T−'+fmt(t):t===0?'ON BLOCKS':'T+'+fmt(-t);}
+
+/* build lanes */
+const laneA=$('#laneA'),laneB=$('#laneB');
+function paint(){
+ laneA.innerHTML=LANE_A.map((e,i)=>`<div class="evt" data-t="${e[0]}" data-i="${i}">
+   <span class="t">${lbl(e[0])}</span><div class="b"><p>${e[1]}</p><span class="tagr ${e[2]}">${e[2]==='wait'?'waiting':'action'}</span></div></div>`).join('');
+ laneB.innerHTML=LANE_B.map((e,i)=>`<div class="evt" data-t="${e[0]}" data-i="${i}">
+   <span class="t">${lbl(e[0])}</span><div class="b"><p>${e[1]}</p><span class="tagr ${e[2]}">${e[2]==='cite'?'cited':'action'}</span></div></div>`).join('');
+}
+paint();
+
+/* ═══ playback ═══ */
+const clock=$('#clock'),runBtn=$('#run'),rstBtn=$('#rst'),badge=$('#alertBadge'),
+      flown=$('#flown'),acraft=$('#acraft'),alertPt=$('#alertPt'),alertTxt=$('#alertTxt'),
+      winRect=$('#winRect'),winLbl=$('#winLbl');
+let timer=null,t=47,speed=1,playing=false;
+
+document.querySelectorAll('.spd button').forEach(b=>b.onclick=()=>{
+ speed=+b.dataset.s;document.querySelectorAll('.spd button').forEach(x=>x.classList.toggle('on',x===b));});
+
+function reset(){
+ clearInterval(timer);playing=false;t=47;
+ clock.textContent='47:00';clock.classList.remove('hot');
+ badge.classList.remove('on');
+ flown.style.transition='none';flown.setAttribute('stroke-dashoffset','900');
+ acraft.setAttribute('opacity','0');acraft.setAttribute('transform','translate(40,104)');
+ alertPt.setAttribute('r','0');alertTxt.setAttribute('opacity','0');
+ winRect.setAttribute('opacity','0');winLbl.setAttribute('opacity','0');
+ $('#outA').textContent='—';$('#outB').textContent='—';
+ $('#outAs').textContent='Run the scenario to compare.';
+ $('#outBs').textContent='Same alert, same aircraft, same crew.';
+ document.querySelectorAll('.evt').forEach(e=>e.classList.remove('on'));
+ runBtn.disabled=false;runBtn.textContent='Run the scenario';
+}
+
+function reveal(){
+ document.querySelectorAll('.evt').forEach(e=>{
+  if(+e.dataset.t>=t)e.classList.add('on');});
+}
+
+function ac(pos){ /* pos 0..1 along the arc, approximated */
+ const x=40+pos*620, y=104-Math.sin(Math.min(pos,1)*Math.PI)*74*(pos<.5?1:1);
+ acraft.setAttribute('transform',`translate(${x.toFixed(1)},${Math.max(y,28).toFixed(1)})`);
+}
+
+function start(){
+ if(playing)return;playing=true;runBtn.disabled=true;runBtn.textContent='Running…';
+ badge.classList.add('on');
+ acraft.setAttribute('opacity','1');
+ alertPt.setAttribute('r','5');alertTxt.setAttribute('opacity','1');
+ winRect.setAttribute('opacity','1');winLbl.setAttribute('opacity','1');
+ flown.style.transition='none';flown.setAttribute('stroke-dashoffset','340');
+ reveal();
+ if(reduced){t=-192;clock.textContent='+192:00';document.querySelectorAll('.evt').forEach(e=>e.classList.add('on'));finish();return;}
+ timer=setInterval(()=>{
+  t-=0.25*speed;
+  clock.textContent=(t<0?'+':'')+fmt(t);
+  clock.classList.toggle('hot',t<=12);
+  ac(Math.min(1,(47-t)/47*0.62+0.5));
+  reveal();
+  if(t<=-192){clearInterval(timer);finish();}
+ },90);
+}
+function finish(){
+ playing=false;runBtn.textContent='Scenario complete';
+ $('#outA').textContent='3 h 12 m after landing';
+ $('#outAs').textContent='Part sourced from another station. One rotation lost.';
+ $('#outB').textContent='38 minutes after landing';
+ $('#outBs').textContent='Parts and technician were waiting at the gate.';
+}
+runBtn.onclick=start;rstBtn.onclick=reset;
+reset();
+</script>
+</body>
+</html>

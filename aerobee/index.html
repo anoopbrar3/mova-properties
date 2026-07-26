@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dusk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroBee — Private preview</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html[data-theme="dusk"]{
+  --bg:#12131A; --bg-alt:#171922; --surface:#1B1D27; --surface2:#20232E;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.17);
+  --text:#F2F4F8; --mute:#9AA2B4; --faint:#6A7285;
+  --blue:#8098DE; --blue-2:#93A8E6; --blue-soft:rgba(128,152,222,.13); --blue-line:rgba(128,152,222,.34);
+  --honey:#F3B944; --honey-ink:#F3B944; --honey-soft:rgba(243,185,68,.13); --honey-line:rgba(243,185,68,.38);
+  --ok:#4CD69B; --warn:#FF7A55;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.5);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 30px 70px -30px rgba(0,0,0,.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',-apple-system,system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  display:grid;
+  place-items:center;
+  min-height:100%;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  top:-20%;left:50%;
+  transform:translateX(-50%);
+  width:800px;height:600px;
+  background:radial-gradient(closest-side,var(--blue-soft),transparent 72%);
+  pointer-events:none;
+}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+
+.gate{
+  width:100%;max-width:420px;
+  border:1px solid var(--line-2);
+  border-radius:22px;
+  background:var(--surface);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  position:relative;z-index:1;
+}
+.gate-top{
+  padding:32px 32px 0;
+  text-align:center;
+}
+.gate-mark{
+  display:inline-flex;align-items:center;gap:9px;
+  margin-bottom:28px;
+}
+.gate-mark svg{width:22px;height:24px}
+.gate-mark b{font-size:19px;font-weight:700;letter-spacing:-.022em}
+.gate-mark b i{color:var(--honey-ink);font-style:normal}
+.gate-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);
+  margin-bottom:8px;
+}
+.gate-title{
+  font-size:clamp(22px,4vw,28px);
+  font-weight:700;letter-spacing:-.028em;line-height:1.15;
+  margin-bottom:10px;
+}
+.gate-sub{
+  font-size:14px;color:var(--mute);line-height:1.55;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--line);
+}
+
+.gate-body{padding:28px 32px 32px}
+.gate-field{
+  width:100%;
+  padding:13px 16px;
+  border:1px solid var(--line-2);
+  border-radius:12px;
+  background:var(--surface2);
+  color:var(--text);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:15px;
+  letter-spacing:.04em;
+  outline:none;
+  transition:border-color .2s;
+  width:100%;
+}
+.gate-field:focus{border-color:var(--blue-line)}
+.gate-field::placeholder{color:var(--faint);letter-spacing:.02em}
+.gate-err{
+  font-size:12.5px;color:var(--warn);
+  margin-top:10px;
+  min-height:18px;
+  opacity:0;transition:opacity .2s;
+}
+.gate-err.on{opacity:1}
+.gate-btn{
+  margin-top:16px;
+  width:100%;
+  padding:14px;
+  border-radius:100px;
+  background:var(--blue);
+  color:#fff;
+  font-size:15px;font-weight:600;
+  letter-spacing:-.01em;
+  cursor:pointer;
+  border:none;
+  transition:transform .2s,box-shadow .2s,opacity .2s;
+}
+.gate-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px var(--blue)}
+.gate-btn:active{transform:none;box-shadow:none}
+.gate-btn:disabled{opacity:.45;transform:none;box-shadow:none;cursor:default}
+
+.gate-foot{
+  padding:16px 32px;
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-size:12px;color:var(--faint);
+  line-height:1.6;
+}
+.gate-foot a{color:var(--mute);text-decoration:underline;text-underline-offset:2px}
+
+/* honeycomb bg detail */
+.hc{position:fixed;bottom:-60px;right:-60px;opacity:.04;pointer-events:none;z-index:0}
+</style>
+</head>
+<body>
+
+<svg class="hc" width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 30 L90 30 L105 56 L90 82 L60 82 L45 56 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M120 30 L150 30 L165 56 L150 82 L120 82 L105 56 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M180 30 L210 30 L225 56 L210 82 L180 82 L165 56 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M240 30 L270 30 L285 56 L270 82 L240 82 L225 56 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M30 82 L60 82 L75 108 L60 134 L30 134 L15 108 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M90 82 L120 82 L135 108 L120 134 L90 134 L75 108 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M150 82 L180 82 L195 108 L180 134 L150 134 L135 108 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M210 82 L240 82 L255 108 L240 134 L210 134 L195 108 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M270 82 L300 82 L315 108 L300 134 L270 134 L255 108 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M60 134 L90 134 L105 160 L90 186 L60 186 L45 160 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M120 134 L150 134 L165 160 L150 186 L120 186 L105 160 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M180 134 L210 134 L225 160 L210 186 L180 186 L165 160 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M240 134 L270 134 L285 160 L270 186 L240 186 L225 160 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M30 186 L60 186 L75 212 L60 238 L30 238 L15 212 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M90 186 L120 186 L135 212 L120 238 L90 238 L75 212 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M150 186 L180 186 L195 212 L180 238 L150 238 L135 212 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M210 186 L240 186 L255 212 L240 238 L210 238 L195 212 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M270 186 L300 186 L315 212 L300 238 L270 238 L255 212 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M60 238 L90 238 L105 264 L90 290 L60 290 L45 264 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M120 238 L150 238 L165 264 L150 290 L120 290 L105 264 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M180 238 L210 238 L225 264 L210 290 L180 290 L165 264 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+  <path d="M240 238 L270 238 L285 264 L270 290 L240 290 L225 264 Z" stroke="#8098DE" stroke-width="1.5" fill="none"/>
+</svg>
+
+<div class="gate">
+  <div class="gate-top">
+    <div class="gate-mark">
+      <svg viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11 1L20.5 6.5V17.5L11 23L1.5 17.5V6.5L11 1Z" stroke="#F3B944" stroke-width="1.5" fill="none"/>
+        <path d="M11 7L15.5 9.5V14.5L11 17L6.5 14.5V9.5L11 7Z" fill="#F3B944" fill-opacity=".25"/>
+        <circle cx="11" cy="12" r="2" fill="#F3B944"/>
+      </svg>
+      <b>Aero<i>Bee</i></b>
+    </div>
+    <p class="gate-label">Private preview</p>
+    <h1 class="gate-title">Aviation answers you can prove</h1>
+    <p class="gate-sub">This demo is shared under NDA. Enter the passphrase to continue.</p>
+  </div>
+
+  <div class="gate-body">
+    <form id="gateForm" autocomplete="off">
+      <input
+        class="gate-field"
+        id="pw"
+        type="password"
+        placeholder="Passphrase"
+        aria-label="Passphrase"
+        autocomplete="off"
+        required
+      >
+      <p class="gate-err" id="err" role="alert">Incorrect passphrase. Try again.</p>
+      <button class="gate-btn" type="submit" id="enterBtn">Enter</button>
+    </form>
+  </div>
+
+  <div class="gate-foot">
+    Hosted by <a href="https://movaproperties.ca">MOVA Properties</a> on behalf of AeroBee.
+  </div>
+</div>
+
+<script>
+const HASH = '5ceadcd8d232fa553d10ca6e1d389f683703e06a7b3e96ce5591711d62888d7b';
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+if(sessionStorage.getItem('ab_auth')==='1'){
+  location.replace('/aerobee/app/');
+}
+
+const form=document.getElementById('gateForm');
+const err=document.getElementById('err');
+const btn=document.getElementById('enterBtn');
+const pw=document.getElementById('pw');
+
+form.onsubmit=async(e)=>{
+  e.preventDefault();
+  btn.disabled=true;
+  err.classList.remove('on');
+  const h=await sha256(pw.value.trim());
+  if(h===HASH){
+    sessionStorage.setItem('ab_auth','1');
+    location.replace('/aerobee/app/');
+  } else {
+    err.classList.add('on');
+    pw.value='';
+    pw.focus();
+    btn.disabled=false;
+  }
+};
+</script>
+</body>
+</html>

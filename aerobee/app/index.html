@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AeroBee — Aviation answers you can prove</title>
+<meta name="description" content="AeroBee reads your flight data, maintenance records and manuals together, then answers questions in plain language with the source attached to every line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════ THEMES ══════════════ */
+html[data-theme="day"]{
+  --bg:#FFFFFF; --bg-alt:#F5F6F8; --surface:#FFFFFF; --surface2:#FAFBFC;
+  --line:rgba(18,22,32,.10); --line-2:rgba(18,22,32,.16);
+  --text:#14181F; --mute:#5C6472; --faint:#8A91A0;
+  --blue:#4663B3; --blue-2:#3A5399; --blue-soft:rgba(70,99,179,.07); --blue-line:rgba(70,99,179,.28);
+  --honey:#E3A62C; --honey-ink:#9C6E12; --honey-soft:rgba(227,166,44,.13); --honey-line:rgba(227,166,44,.42);
+  --ok:#2E9E6B; --warn:#D2542F;
+  --shadow:0 1px 2px rgba(18,22,32,.04),0 12px 32px -12px rgba(18,22,32,.12);
+  --shadow-lg:0 2px 4px rgba(18,22,32,.04),0 30px 70px -30px rgba(18,22,32,.22);
+}
+html[data-theme="dusk"]{
+  --bg:#12131A; --bg-alt:#171922; --surface:#1B1D27; --surface2:#20232E;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.17);
+  --text:#F2F4F8; --mute:#9AA2B4; --faint:#6A7285;
+  --blue:#8098DE; --blue-2:#93A8E6; --blue-soft:rgba(128,152,222,.13); --blue-line:rgba(128,152,222,.34);
+  --honey:#F3B944; --honey-ink:#F3B944; --honey-soft:rgba(243,185,68,.13); --honey-line:rgba(243,185,68,.38);
+  --ok:#4CD69B; --warn:#FF7A55;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.5);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.3),0 30px 70px -30px rgba(0,0,0,.6);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:17px;
+  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .45s ease,color .45s ease;font-feature-settings:"cv11","ss01"}
+button,input{font-family:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+svg{display:block}
+.shell{max-width:1140px;margin:0 auto;padding:0 32px}
+@media(max-width:640px){.shell{padding:0 20px}}
+
+.h1{font-size:clamp(40px,6.4vw,72px);font-weight:700;letter-spacing:-.038em;line-height:1.04}
+.h2{font-size:clamp(30px,4.2vw,48px);font-weight:700;letter-spacing:-.032em;line-height:1.08}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--blue)}
+.lead{font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:var(--mute)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.22,.7,.25,1),transform .8s cubic-bezier(.22,.7,.25,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:300;width:0}
+
+/* ══════════════ nav ══════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;transition:background .35s,border-color .35s}
+nav.solid{background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--line)}
+nav .shell{display:flex;align-items:center;gap:18px;height:60px}
+.mark{display:flex;align-items:center;gap:9px}
+.mark svg{width:22px;height:24px}
+.mark b{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.mark b i{color:var(--honey-ink);font-style:normal}
+nav .sp{flex:1}
+.nl{font-size:14px;color:var(--mute);transition:color .2s}
+.nl:hover{color:var(--text)}
+@media(max-width:1000px){.nl{display:none}}
+.tsw{display:flex;padding:2px;border:1px solid var(--line);border-radius:100px;background:var(--bg-alt)}
+.tsw button{display:grid;place-items:center;width:28px;height:26px;border-radius:100px;color:var(--faint);transition:.25s}
+.tsw button svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.7;fill:none}
+.tsw button.on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.btn-sm{font-size:14px;font-weight:500;padding:8px 16px;border-radius:100px;background:var(--text);color:var(--bg);transition:opacity .25s}
+.btn-sm:hover{opacity:.85}
+@media(max-width:600px){.btn-sm{display:none}}
+
+/* ══════════════ hero ══════════════ */
+.hero{padding:clamp(120px,15vh,168px) 0 clamp(56px,8vw,88px);position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);
+  width:min(1100px,130vw);height:min(760px,90vw);pointer-events:none;
+  background:radial-gradient(closest-side,var(--blue-soft),transparent 72%)}
+.hero-in{position:relative;z-index:2}
+.hero h1{margin:0 auto;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lead{margin:22px auto 0;max-width:52ch}
+.cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:32px;justify-content:center}
+.btn-p{font-size:16px;font-weight:500;padding:14px 28px;border-radius:100px;background:var(--blue);color:#fff;transition:transform .25s,box-shadow .25s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 14px 34px -14px var(--blue)}
+.btn-s{font-size:16px;font-weight:500;padding:14px 28px;border-radius:100px;border:1px solid var(--line-2);transition:background .25s}
+.btn-s:hover{background:var(--bg-alt)}
+.card{margin:clamp(44px,6vw,66px) auto 0;max-width:780px;text-align:left;border:1px solid var(--line);border-radius:20px;
+  background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden}
+.card-top{display:flex;align-items:center;gap:9px;padding:13px 20px;border-bottom:1px solid var(--line);background:var(--surface2)}
+.card-top .dot{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.card-top .m{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint)}
+.card-top .tag{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--honey-ink);
+  border:1px solid var(--honey-line);border-radius:100px;padding:3px 9px;background:var(--honey-soft)}
+.card-q{padding:18px 22px 0;font-size:15px;color:var(--faint)}
+.card-q b{color:var(--mute);font-weight:500}
+.card-a{padding:12px 22px 6px;font-size:clamp(18px,2.1vw,22px);font-weight:500;letter-spacing:-.02em;line-height:1.42}
+.card-a b{color:var(--blue);font-weight:600}
+.card-src{padding:0 22px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--blue);min-height:18px}
+.card-viz{padding:6px 12px 0}
+.card-foot{display:flex;flex-wrap:wrap;gap:8px 22px;padding:16px 22px;margin-top:12px;border-top:1px solid var(--line);background:var(--surface2)}
+.card-foot span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+.card-foot span b{color:var(--text);font-weight:500}
+.card-foot span.g b{color:var(--ok)}
+
+/* ══════════════ sections ══════════════ */
+.band{padding:clamp(76px,9vw,124px) 0}
+.band.alt{background:var(--bg-alt)}
+.head-c{text-align:center;max-width:62ch;margin:0 auto}
+.head-c .h2{margin-top:14px}
+.head-c .lead{margin:18px auto 0;max-width:54ch}
+.head-l{max-width:62ch}
+.head-l .h2{margin-top:14px}
+.head-l .lead{margin-top:18px}
+
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:clamp(20px,3vw,40px);margin-top:56px}
+.pil svg{width:30px;height:30px;stroke:var(--blue);stroke-width:1.5;fill:none;margin-bottom:20px}
+.pil h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin-bottom:9px}
+.pil p{font-size:15.5px;color:var(--mute);line-height:1.58}
+
+/* problem */
+.story{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,5vw,72px);align-items:center}
+@media(max-width:880px){.story{grid-template-columns:1fr;gap:38px}}
+.steps{margin-top:28px}
+.step{display:flex;gap:15px;padding:13px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:none}
+.step .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);padding-top:3px;min-width:22px}
+.step p{font-size:15.5px;color:var(--mute)}
+.step p b{color:var(--text);font-weight:500}
+.compare{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.crow{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:15px 22px;border-top:1px solid var(--line)}
+.crow.hd{border-top:none;background:var(--surface2)}
+.crow.hd div{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.crow .lbl{font-size:14.5px;color:var(--mute)}
+.crow .a,.crow .b{font-size:16px;font-weight:600;letter-spacing:-.02em;min-width:74px;text-align:right}
+.crow .a{color:var(--faint)}
+.crow .b{color:var(--blue)}
+
+/* ══════════════ console ══════════════ */
+.console{margin-top:52px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden}
+.ctabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;background:var(--surface2)}
+.ctabs::-webkit-scrollbar{display:none}
+.ctab{flex:1;min-width:124px;padding:16px 14px;font-size:13.5px;font-weight:500;color:var(--faint);
+  border-bottom:2px solid transparent;white-space:nowrap;transition:.25s}
+.ctab:hover{color:var(--mute)}
+.ctab.on{color:var(--blue);border-bottom-color:var(--blue);background:var(--surface)}
+.ctab.on.rf{color:var(--honey-ink);border-bottom-color:var(--honey)}
+.cbody{display:grid;grid-template-columns:186px 1fr;min-height:520px}
+@media(max-width:800px){.cbody{grid-template-columns:1fr}}
+.rail{border-right:1px solid var(--line);padding:16px 14px;display:flex;flex-direction:column;gap:6px;background:var(--surface2)}
+@media(max-width:800px){.rail{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(--line);scrollbar-width:none}
+ .rail::-webkit-scrollbar{display:none}}
+.lvl{text-align:left;padding:11px 13px;border-radius:11px;transition:.25s;flex:0 0 auto;border:1px solid transparent}
+.lvl .k{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--faint)}
+.lvl .t{font-size:14px;font-weight:500;letter-spacing:-.01em;margin-top:2px}
+.lvl .s{font-size:11.5px;color:var(--faint);margin-top:1px}
+.lvl:hover{background:var(--bg-alt)}
+.lvl.on{background:var(--blue-soft);border-color:var(--blue-line)}
+.lvl.on .k{color:var(--blue)}
+.console.rf .lvl.on{background:var(--honey-soft);border-color:var(--honey-line)}
+.console.rf .lvl.on .k{color:var(--honey-ink)}
+.screen{padding:clamp(24px,3vw,36px)}
+.qline{font-size:14px;color:var(--faint);margin-bottom:20px;max-width:58ch}
+.qline b{color:var(--mute);font-weight:500}
+.page{display:none}
+.page.on{display:block;animation:pin .4s cubic-bezier(.22,.7,.25,1)}
+@keyframes pin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.page.on{animation:none}}
+.p-head{font-size:clamp(21px,2.6vw,29px);font-weight:600;letter-spacing:-.028em;line-height:1.18;max-width:26ch}
+.p-sub{margin-top:14px;font-size:16px;color:var(--mute);max-width:56ch;line-height:1.55}
+.p-sub b{color:var(--text);font-weight:500}
+.decide{margin-top:22px;padding:18px 20px;border-radius:14px;background:var(--blue-soft);border:1px solid var(--blue-line);max-width:58ch}
+.console.rf .decide{background:var(--honey-soft);border-color:var(--honey-line)}
+.decide .dk{font-size:11.5px;font-weight:600;color:var(--blue);margin-bottom:8px}
+.console.rf .decide .dk{color:var(--honey-ink)}
+.decide p{font-size:15.5px;line-height:1.5}
+.dstats{display:flex;flex-wrap:wrap;gap:22px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.dstats div{font-size:12px;color:var(--faint)}
+.dstats b{display:block;font-size:17px;font-weight:600;color:var(--text);margin-top:3px;letter-spacing:-.02em}
+.ev{display:flex;gap:16px;padding:12px 0;border-top:1px solid var(--line);max-width:64ch}
+.ev:first-of-type{border-top:none}
+.ev .ek{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);min-width:70px;padding-top:4px}
+.ev .et{flex:1;font-size:15px;color:var(--mute);line-height:1.55}
+.ev .et b{color:var(--text);font-weight:500}
+.chip{display:inline-grid;place-items:center;height:19px;min-width:25px;margin:0 2px;vertical-align:1px;
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;color:var(--blue);border:1px solid var(--blue-line);
+  background:var(--blue-soft);border-radius:5px;padding:0 7px;cursor:pointer;transition:.2s}
+.chip:hover,.chip.lit{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mth{font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.9;color:var(--mute);max-width:60ch}
+.mth s{text-decoration:none;color:var(--blue)}
+.asm{margin-top:20px;max-width:60ch;padding:16px 18px;border-radius:12px;background:var(--bg-alt);border:1px solid var(--line)}
+.asm .ak{font-size:11.5px;font-weight:600;color:var(--honey-ink);margin-bottom:10px}
+.asm li{list-style:none;font-size:14px;color:var(--mute);padding:5px 0 5px 16px;position:relative;line-height:1.5}
+.asm li::before{content:'';position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--honey)}
+.dt{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:12px;max-width:62ch}
+.dt th{text-align:left;padding:9px 14px 9px 0;color:var(--faint);font-weight:400;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;border-bottom:1px solid var(--line)}
+.dt td{padding:10px 14px 10px 0;border-bottom:1px solid var(--line);color:var(--mute)}
+.dt td:first-child{color:var(--text)}
+.dt tr.mk td{color:var(--honey-ink)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:62ch}
+.pc{background:var(--surface2);padding:14px 16px}
+.pc .pk{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.pc .pv{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text);margin-top:5px;word-break:break-word}
+.pc.v .pv{color:var(--ok)}
+.chip-out{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--blue);min-height:17px}
+.cstatus{display:flex;flex-wrap:wrap;gap:9px 24px;align-items:center;padding:16px clamp(22px,3vw,36px);
+  border-top:1px solid var(--line);background:var(--surface2)}
+.cstatus div{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+.cstatus div b{color:var(--text);font-weight:500}
+.cstatus div.g b{color:var(--ok)}
+.cstatus div.h b{color:var(--honey-ink)}
+.cstatus .adv{width:100%;font-family:'Inter',sans-serif;font-size:12.5px;color:var(--faint);line-height:1.55;max-width:80ch}
+.cstatus .adv b{color:var(--mute)}
+
+/* ══════════════ CHARTS ══════════════ */
+.viz{margin-top:22px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);padding:16px 18px 12px;max-width:66ch}
+.viz .vh{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:6px}
+.viz .vt{font-size:13px;font-weight:600;letter-spacing:-.01em}
+.viz .vk{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint)}
+.ch{width:100%;height:auto;overflow:visible}
+.ch text{font-family:'IBM Plex Mono',monospace;fill:var(--faint)}
+.ch .axis{stroke:var(--line);stroke-width:1}
+.ch .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+.ch .lim{stroke:var(--warn);stroke-width:1.2;stroke-dasharray:5 4}
+.ch .s1{stroke:var(--blue);stroke-width:2.4;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.ch .s2{stroke:var(--faint);stroke-width:1.8;fill:none;stroke-linejoin:round;opacity:.75}
+.ch .band{fill:var(--honey-soft)}
+.ch .bar{fill:var(--blue);opacity:.35}
+.ch .bar.hot{fill:var(--honey);opacity:1}
+.ch .bar.cool{fill:var(--blue);opacity:.75}
+.ch .neg{fill:var(--ok);opacity:.7}
+.ch .pt{fill:var(--blue)}
+.ch .pt.out{fill:var(--warn)}
+.ch .lbl{font-size:9.5px}
+.ch .val{font-size:11px;font-weight:500;fill:var(--text)}
+.ch .cal{font-size:10px;fill:var(--honey-ink);font-weight:500}
+.ch .lead-l{stroke:var(--honey-line);stroke-width:1}
+.ch .none{fill:var(--faint);font-size:11px}
+@media (prefers-reduced-motion: no-preference){
+  .ch .draw{stroke-dasharray:1800;stroke-dashoffset:1800;animation:dr 1.5s cubic-bezier(.3,.8,.3,1) forwards}
+  .ch .grow{transform-origin:center bottom;animation:gr .7s cubic-bezier(.2,.8,.25,1) backwards}
+  .ch .fade{opacity:0;animation:fd .5s ease .75s forwards}
+  @keyframes dr{to{stroke-dashoffset:0}}
+  @keyframes gr{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes fd{to{opacity:1}}
+}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px}
+.legend span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:2px;border-radius:2px;display:block}
+
+/* ══════════════ features ══════════════ */
+.feat{margin-top:52px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.frow{display:grid;grid-template-columns:44px 1.05fr 1.25fr;gap:clamp(14px,2.4vw,30px);align-items:start;
+  padding:24px 26px;border-top:1px solid var(--line);transition:background .3s}
+.frow:first-child{border-top:none}
+.frow:hover{background:var(--surface2)}
+.frow svg{width:24px;height:24px;stroke:var(--blue);stroke-width:1.5;fill:none;margin-top:3px}
+.frow h4{font-size:17px;font-weight:600;letter-spacing:-.02em;margin-bottom:5px}
+.frow .fw{font-size:14.5px;color:var(--mute);line-height:1.55}
+.frow .fb{font-size:15px;line-height:1.55}
+.frow .fb .bl{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--honey-ink);margin-bottom:5px}
+@media(max-width:820px){.frow{grid-template-columns:32px 1fr;padding:22px}
+ .frow .fb{grid-column:2;padding-top:12px;border-top:1px solid var(--line)}}
+
+/* ══════════════ segments ══════════════ */
+.segs{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:16px;margin-top:48px}
+.seg{border:1px solid var(--line);border-radius:20px;padding:28px 26px;background:var(--surface);display:flex;flex-direction:column;
+  transition:transform .3s,box-shadow .3s}
+.seg:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.seg svg{width:26px;height:26px;stroke:var(--blue);stroke-width:1.5;fill:none;margin-bottom:18px}
+.seg h4{font-size:19px;font-weight:600;letter-spacing:-.022em;margin-bottom:6px}
+.seg .who{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);margin-bottom:12px}
+.seg p{font-size:14.5px;color:var(--mute);line-height:1.56;flex:1}
+.seg .ask{margin-top:18px;padding-top:15px;border-top:1px solid var(--line);font-size:14px;font-style:italic;color:var(--text)}
+
+/* ══════════════ architecture flow ══════════════ */
+.flow{margin-top:52px;border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:clamp(22px,3vw,34px);box-shadow:var(--shadow)}
+.flow-row{display:flex;align-items:stretch;gap:12px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.flow-row::-webkit-scrollbar{display:none}
+.fnode{flex:1 1 0;min-width:150px;border:1px solid var(--line);border-radius:14px;padding:16px 15px;background:var(--surface2);position:relative}
+.fnode.acc{border-color:var(--blue-line);background:var(--blue-soft)}
+.fnode.ver{border-color:var(--honey-line);background:var(--honey-soft)}
+.fnode .fk{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.fnode h5{font-size:14.5px;font-weight:600;letter-spacing:-.015em;margin:5px 0 6px}
+.fnode ul{list-style:none}
+.fnode li{font-size:12px;color:var(--mute);line-height:1.5;padding-left:9px;position:relative}
+.fnode li::before{content:'';position:absolute;left:0;top:8px;width:3px;height:3px;border-radius:50%;background:var(--faint)}
+.farrow{flex:0 0 auto;display:grid;place-items:center;color:var(--faint)}
+.farrow svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;fill:none}
+.flow-notes{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.flow-notes div{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:8px}
+.flow-notes svg{width:15px;height:15px;stroke:var(--ok);stroke-width:1.8;fill:none;flex:0 0 auto}
+
+/* ══════════════ trust ══════════════ */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(246px,1fr));gap:16px;margin-top:48px}
+.tc{border:1px solid var(--line);border-radius:18px;padding:28px 26px;background:var(--surface);transition:transform .3s,box-shadow .3s}
+.tc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tc svg{width:26px;height:26px;stroke:var(--honey-ink);stroke-width:1.5;fill:none;margin-bottom:18px}
+.tc h4{font-size:17px;font-weight:600;letter-spacing:-.02em;margin-bottom:9px}
+.tc p{font-size:14.5px;color:var(--mute);line-height:1.58}
+.why{margin:36px auto 0;max-width:62ch;padding:20px 24px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-align:left}
+.why .wk{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--honey-ink);margin-bottom:8px}
+.why p{font-size:15.5px;color:var(--mute);line-height:1.55}
+
+/* ══════════════ governance ══════════════ */
+.gov{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:48px}
+.gcell{background:var(--surface);padding:24px 22px}
+.gcell .gq{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:8px}
+.gcell p{font-size:14.5px;color:var(--mute);line-height:1.56}
+
+/* ══════════════ objections ══════════════ */
+.obj{margin-top:48px;max-width:78ch}
+.oitem{border-top:1px solid var(--line)}
+.oitem:last-child{border-bottom:1px solid var(--line)}
+.oq{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:22px 4px;font-size:17px;font-weight:500;letter-spacing:-.015em}
+.oq .ic{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;
+  color:var(--faint);font-size:15px;line-height:1;transition:.3s;margin-left:auto}
+.oitem.open .oq .ic{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}
+.oa{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.3,.8,.3,1)}
+.oitem.open .oa{max-height:400px}
+.oa p{padding:0 4px 22px 50px;font-size:15.5px;color:var(--mute);line-height:1.6;max-width:70ch}
+.oa p b{color:var(--text);font-weight:500}
+@media(max-width:600px){.oa p{padding-left:4px}}
+
+/* ══════════════ calculator ══════════════ */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,60px);align-items:start;margin-top:48px}
+@media(max-width:780px){.calc{grid-template-columns:1fr}}
+.ctrl{margin-bottom:26px}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:14.5px;color:var(--mute);margin-bottom:12px}
+.ctrl label b{font-size:19px;font-weight:600;color:var(--text);letter-spacing:-.02em;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--line);border-radius:4px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--surface);
+  border:1px solid var(--line-2);box-shadow:0 1px 4px rgba(0,0,0,.18);cursor:pointer;transition:transform .2s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.1)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:1px solid var(--line-2);border-radius:50%;background:var(--surface);cursor:pointer}
+.readout{border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:clamp(26px,3.4vw,36px);box-shadow:var(--shadow)}
+.readout .rk{font-size:12.5px;font-weight:600;color:var(--faint)}
+.readout .big{font-size:clamp(40px,6.2vw,64px);font-weight:700;letter-spacing:-.045em;color:var(--blue);margin:10px 0 5px;line-height:1;font-variant-numeric:tabular-nums}
+.readout .rs{font-size:14.5px;color:var(--mute)}
+.rsplit{display:flex;gap:26px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);flex-wrap:wrap}
+.rsplit div{font-size:12px;color:var(--faint)}
+.rsplit div b{display:block;font-size:21px;font-weight:600;color:var(--text);margin-top:5px;letter-spacing:-.025em}
+.anote{margin-top:22px;font-size:13.5px;color:var(--faint);line-height:1.6}
+.anote b{color:var(--honey-ink);font-weight:600}
+
+/* ══════════════ layers / apps ══════════════ */
+.layers{margin-top:44px;border-top:1px solid var(--line)}
+.layer{display:grid;grid-template-columns:30px 1fr auto;gap:clamp(14px,2.4vw,28px);align-items:start;
+  padding:26px 4px;border-bottom:1px solid var(--line);transition:padding-left .35s}
+.layer:hover{padding-left:12px}
+.layer svg{width:22px;height:22px;stroke:var(--blue);stroke-width:1.5;fill:none;margin-top:3px}
+.layer h4{font-size:18px;font-weight:600;letter-spacing:-.022em;margin-bottom:6px}
+.layer p{font-size:15px;color:var(--mute);max-width:64ch;line-height:1.55}
+.pill{font-size:11px;color:var(--faint);border:1px solid var(--line);border-radius:100px;padding:5px 12px;white-space:nowrap;margin-top:3px}
+.pill.live{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 40%,transparent);background:color-mix(in srgb,var(--ok) 8%,transparent)}
+@media(max-width:600px){.layer{grid-template-columns:26px 1fr}.layer .pill{grid-column:2;justify-self:start}}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(264px,1fr));gap:16px;margin-top:48px}
+.app{border:1px solid var(--line);border-radius:20px;padding:28px 26px;background:var(--surface);display:flex;flex-direction:column;
+  transition:transform .35s,box-shadow .35s}
+.app:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.app.now{border-color:var(--blue-line);background:linear-gradient(170deg,var(--blue-soft),var(--surface) 60%)}
+.app .bd{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.app.now .bd{color:var(--blue)}
+.app h4{font-size:20px;font-weight:600;letter-spacing:-.024em;margin-bottom:10px}
+.app p{font-size:14.5px;color:var(--mute);line-height:1.56;flex:1}
+.app .fact{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--faint);line-height:1.55}
+.app .fact b{color:var(--honey-ink);font-weight:600}
+
+/* ══════════════ close / paths ══════════════ */
+.paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:16px;margin-top:48px;text-align:left}
+.path{border:1px solid var(--line);border-radius:20px;padding:28px 26px;background:var(--surface);display:flex;flex-direction:column}
+.path .pk{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.path h4{font-size:19px;font-weight:600;letter-spacing:-.022em;margin-bottom:9px}
+.path p{font-size:14.5px;color:var(--mute);line-height:1.56;flex:1}
+.path .go{margin-top:20px;font-size:14.5px;font-weight:500;color:var(--blue)}
+.close{text-align:center;padding:clamp(84px,10vw,132px) 0}
+.close .h2{max-width:22ch;margin:0 auto}
+.close .lead{margin:20px auto 0;max-width:50ch}
+footer{border-top:1px solid var(--line);padding:44px 0 56px}
+.fg{display:flex;flex-wrap:wrap;gap:26px 56px;justify-content:space-between}
+.fc{font-size:13.5px;color:var(--faint);line-height:1.7;max-width:42ch}
+.fc b{color:var(--mute);font-weight:600}
+.srcs{margin-top:30px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);line-height:1.75;max-width:92ch}
+</style>
+</head>
+<body>
+<script>(()=>{if(sessionStorage.getItem('ab_auth')!=='1')location.replace('/aerobee/')})()</script>
+<div id="prog"></div>
+
+<nav id="nav"><div class="shell">
+  <a class="mark" href="#top" aria-label="AeroBee home">
+    <svg viewBox="0 0 28 30" fill="none" aria-hidden="true">
+      <path d="M14 1.7 25.3 8.3v13.4L14 28.3 2.7 21.7V8.3Z" stroke="var(--blue)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M14 9.3 19 12.2v5.6L14 20.7 9 17.8v-5.6Z" fill="var(--honey)"/>
+    </svg>
+    <b>Aero<i>Bee</i></b>
+  </a>
+  <div class="sp"></div>
+  <a class="nl" href="#value">Why AeroBee</a>
+  <a class="nl" href="#demo">See it answer</a>
+  <a class="nl" href="#features">Features</a>
+  <a class="nl" href="#who">Who it's for</a>
+  <a class="nl" href="#platform">Platform</a>
+  <div class="tsw" id="tsw" role="group" aria-label="Theme">
+    <button data-t="day" class="on" aria-label="Day theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></button>
+    <button data-t="dusk" aria-label="Dusk theme"><svg viewBox="0 0 24 24"><path d="M20.5 14.8A8.5 8.5 0 0 1 9.2 3.5 8.5 8.5 0 1 0 20.5 14.8Z"/></svg></button>
+  </div>
+  <a class="btn-sm" href="#demo">See it answer</a>
+</div></nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top"><div class="shell hero-in">
+  <p class="eyebrow rv">Verifiable aviation intelligence</p>
+  <h1 class="h1 rv" style="margin-top:18px">Aviation answers <em>you can prove.</em></h1>
+  <p class="lead rv">AeroBee reads your flight data, maintenance records and manuals together, then answers questions in plain language — with the source attached to every line.</p>
+  <div class="cta rv">
+    <a class="btn-p" href="#demo">See it answer a real question</a>
+    <a class="btn-s" href="#value">Why it's different</a>
+  </div>
+
+  <div class="card rv">
+    <div class="card-top"><span class="dot"></span><span class="m">Maintenance control · N310AB · A310-300</span><span class="tag">4.2 s</span></div>
+    <p class="card-q"><b>Asked:</b> Is engine 1 deteriorating, and what do I do about it?</p>
+    <p class="card-a" id="heroA"></p>
+    <p class="card-src" id="heroSrc"></p>
+    <div class="card-viz" id="heroViz"></div>
+    <div class="card-foot">
+      <span>Claims made <b>17</b></span>
+      <span class="g">Cited <b>17</b></span>
+      <span class="g">Uncited <b>0</b></span>
+      <span>Systems read <b>4</b></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ VALUE ═══════════ -->
+<section class="band alt" id="value"><div class="shell">
+  <div class="head-c rv">
+    <p class="eyebrow">The value</p>
+    <h2 class="h2">Three things no other aviation tool does together.</h2>
+    <p class="lead">Plenty of software stores your data. Some of it charts your data. AeroBee answers questions across all of it, and shows its work.</p>
+  </div>
+  <div class="pillars rv">
+    <div class="pil">
+      <svg viewBox="0 0 24 24"><path d="M4 5.5h16v11H12l-4 3.5v-3.5H4z"/><path d="M8 9h8M8 12.5h5"/></svg>
+      <h3>Ask in plain language</h3>
+      <p>No query builder, no dashboard tour, no analyst queue. Type the question the way you'd ask a colleague on shift, and get an answer written for the person who asked it.</p>
+    </div>
+    <div class="pil">
+      <svg viewBox="0 0 24 24"><path d="M3 7.5h6l2 2.5h10v9H3z"/><path d="M3 7.5V5h5"/><path d="M7 14h9"/></svg>
+      <h3>Read every system, change none</h3>
+      <p>Read-only connectors sit on top of the systems you already run. Nothing is migrated, nothing is replaced, and nothing is ever written back to a record of any kind.</p>
+    </div>
+    <div class="pil">
+      <svg viewBox="0 0 24 24"><path d="M6 3.5h8l4.5 4.5v12.5H6z"/><path d="M14 3.5V8h4.5"/><path d="M9.5 14.2l1.9 1.9 4-4.2"/></svg>
+      <h3>Cite it, or don't claim it</h3>
+      <p>Every sentence carries the record, manual revision or parameter it came from. Claims that can't be traced are removed before you ever see them — and the count is shown.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ PROBLEM ═══════════ -->
+<section class="band"><div class="shell">
+  <div class="story">
+    <div class="rv">
+      <p class="eyebrow">The problem</p>
+      <h2 class="h2">Today, one question costs half a day.</h2>
+      <p class="lead">A controller wants to know whether an engine is deteriorating. The answer exists — it's just scattered across five places that were never built to talk to each other.</p>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><p>Pull <b>recorder data</b> and find comparable takeoffs</p></div>
+        <div class="step"><span class="n">02</span><p>Open the <b>maintenance system</b> for what was done last time</p></div>
+        <div class="step"><span class="n">03</span><p>Find the right <b>manual revision</b> for this tail's configuration</p></div>
+        <div class="step"><span class="n">04</span><p>Check <b>parts and tooling</b> at the arrival station</p></div>
+        <div class="step"><span class="n">05</span><p>Ask the <b>one engineer</b> who remembers the last occurrence</p></div>
+      </div>
+    </div>
+    <div class="compare rv">
+      <div class="crow hd"><div>Same question</div><div>Today</div><div>AeroBee</div></div>
+      <div class="crow"><span class="lbl">Systems opened</span><span class="a">5</span><span class="b">1</span></div>
+      <div class="crow"><span class="lbl">People involved</span><span class="a">3</span><span class="b">1</span></div>
+      <div class="crow"><span class="lbl">Time to answer</span><span class="a">~4 hrs</span><span class="b">4.2 s</span></div>
+      <div class="crow"><span class="lbl">Claims you can trace</span><span class="a">None</span><span class="b">All</span></div>
+      <div class="crow"><span class="lbl">Repeatable next month</span><span class="a">No</span><span class="b">Yes</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ DEMO ═══════════ -->
+<section class="band alt" id="demo"><div class="shell">
+  <div class="head-c rv">
+    <p class="eyebrow">See it answer</p>
+    <h2 class="h2">Every answer opens all the way down.</h2>
+    <p class="lead">Pick a question. Then step down the levels — from the plain answer to the exact connector and frame definition the number came from. Everyone in the room gets the depth they need.</p>
+  </div>
+  <div class="console rv" id="console">
+    <div class="ctabs" id="tabs" role="tablist" aria-label="Questions"></div>
+    <div class="cbody">
+      <div class="rail" id="rail"></div>
+      <div class="screen">
+        <p class="qline" id="qline"></p>
+        <div id="pages"></div>
+      </div>
+    </div>
+    <div class="cstatus" id="status"></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section class="band" id="features"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">Features and benefits</p>
+    <h2 class="h2">What it does, and what that's worth.</h2>
+    <p class="lead">Left column: the capability. Right column: what changes in your operation because of it.</p>
+  </div>
+  <div class="feat rv">
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 4.3 4.3"/></svg>
+      <div><h4>Cross-system retrieval</h4><p class="fw">One question reaches recorder data, maintenance history, manuals, deferrals and inventory in a single pass.</p></div>
+      <div class="fb"><span class="bl">What changes</span>You stop reconciling five exports by hand — and you can finally ask questions that span systems, like which open deferrals relate to a trend you're watching.</div>
+    </div>
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><path d="M6 3.5h8l4.5 4.5v12.5H6z"/><path d="M14 3.5V8h4.5"/><path d="M9 12.5h6M9 15.5h4"/></svg>
+      <div><h4>Source anchoring on every claim</h4><p class="fw">Each sentence links to the document, revision and page — or the parameter and timestamp — behind it.</p></div>
+      <div class="fb"><span class="bl">What changes</span>Findings survive an audit. When someone asks where a number came from six months later, the answer is one click away instead of a reconstruction exercise.</div>
+    </div>
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><path d="M12 3.4 20.3 18H3.7z"/><path d="M12 9.2v4.4"/><circle cx="12" cy="15.8" r=".7" fill="currentColor" stroke="none"/></svg>
+      <div><h4>Verification and refusal</h4><p class="fw">A post-generation check strips any claim without a source, and reports how many were removed.</p></div>
+      <div class="fb"><span class="bl">What changes</span>You can trust the output enough to act on it. A tool that occasionally invents a part number is worse than no tool, because you have to check everything anyway.</div>
+    </div>
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><path d="M3.5 19h17"/><path d="M4 15.5 8.5 11l3.5 3L20 5.5"/><path d="M4 9.5h16" stroke-dasharray="2.5 2.5"/></svg>
+      <div><h4>Trend and divergence detection</h4><p class="fw">Statistical process control on recorder parameters — inter-engine deltas, exceedance patterns, drift from a reset baseline.</p></div>
+      <div class="fb"><span class="bl">What changes</span>You see deterioration while it's still a scheduled task. Early enough to book the work, order the part, and keep the aircraft flying.</div>
+    </div>
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><path d="M4 6.5h16M4 12h16M4 17.5h10"/><circle cx="17.5" cy="17.5" r="2.6"/></svg>
+      <div><h4>Free-text defect matching</h4><p class="fw">Squawks, tech log entries and rectification notes are searched by meaning, not by exact wording.</p></div>
+      <div class="fb"><span class="bl">What changes</span>Repeat defects stop hiding behind different phrasing. "Has this happened before?" becomes answerable even when nobody wrote it down the same way twice.</div>
+    </div>
+    <div class="frow">
+      <svg viewBox="0 0 24 24"><path d="M12 3.5 4.5 6.8v5.4c0 4.2 3 7.6 7.5 8.9 4.5-1.3 7.5-4.7 7.5-8.9V6.8z"/><path d="M9.2 12.2l1.9 1.9 3.9-4.1"/></svg>
+      <div><h4>Stated assumptions and audit log</h4><p class="fw">Every answer lists what it assumed. Every input, retrieval, output and human action is logged immutably.</p></div>
+      <div class="fb"><span class="bl">What changes</span>You know the limits of the answer before you act on it, and you can show a regulator or an investigator exactly how a decision was reached.</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ WHO IT'S FOR ═══════════ -->
+<section class="band alt" id="who"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">Who it's for</p>
+    <h2 class="h2">Built for the fleets the majors' tools don't reach.</h2>
+    <p class="lead">If you have thousands of aircraft and an integrated manufacturer platform, you're already covered. Everyone else is answering these questions by hand.</p>
+  </div>
+  <div class="segs rv">
+    <div class="seg">
+      <svg viewBox="0 0 24 24"><path d="M2.5 12.5 12 4l9.5 8.5"/><path d="M5.5 11v9h13v-9"/><path d="M10 20v-5h4v5"/></svg>
+      <h4>Regional and charter operators</h4>
+      <p class="who">5–50 aircraft · no manufacturer health platform</p>
+      <p>You have recorder data, a maintenance system and a manual set — but no way to ask them a question together. One controller carries the fleet's history in their head.</p>
+      <p class="ask">"Is this a repeat defect, or the first time?"</p>
+    </div>
+    <div class="seg">
+      <svg viewBox="0 0 24 24"><path d="M4 20V8.5l8-4.5 8 4.5V20"/><path d="M9 20v-6h6v6"/><path d="M7.5 11h2M14.5 11h2"/></svg>
+      <h4>Independent MROs and CAMOs</h4>
+      <p class="who">Managing continuing airworthiness for others</p>
+      <p>You answer for aircraft whose records you didn't create, across several client systems and formats. Every audit is a reconstruction exercise done under time pressure.</p>
+      <p class="ask">"What evidence do we actually hold for this directive?"</p>
+    </div>
+    <div class="seg">
+      <svg viewBox="0 0 24 24"><path d="M3.5 6.5h17v13h-17z"/><path d="M8.5 6.5V4h7v2.5"/><path d="M3.5 12h17"/></svg>
+      <h4>Lessors, traders and brokers</h4>
+      <p class="who">Buying, selling or accepting redelivery</p>
+      <p>The records package sets the price. Gaps in traceability become negotiation levers — or scrapped components with cycles still left on them.</p>
+      <p class="ask">"Where are the gaps, before the inspector finds them?"</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ TRUST ═══════════ -->
+<section class="band" id="trust"><div class="shell">
+  <div class="head-c rv">
+    <p class="eyebrow">Why you can trust it</p>
+    <h2 class="h2">Four rules, enforced in code.</h2>
+    <p class="lead">Not policy, not a disclaimer at the bottom of a report. These are build constraints — if the software breaks one, the build fails.</p>
+  </div>
+  <div class="tgrid rv">
+    <div class="tc"><svg viewBox="0 0 24 24"><path d="M4 7h11l3 3v7H4z"/><path d="M4 7 8 3h11l-4 4"/><path d="M8 11h6"/></svg>
+      <h4>Retrieval, never training</h4>
+      <p>AeroBee is not fine-tuned on your data. Answers are retrieved from your approved sources and grounded in them. Training on records would destroy the traceability that makes an answer usable at all.</p></div>
+    <div class="tc"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.4"/><path d="m15.6 15.6 4.4 4.4"/><path d="M8.6 11.2l1.8 1.8 3.4-3.6"/></svg>
+      <h4>The citation verifier</h4>
+      <p>Every claim is extracted after generation and matched to a source. Unmatched claims are stripped, and the count appears on the answer — including when it isn't zero.</p></div>
+    <div class="tc"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M8.4 8.4l7.2 7.2"/></svg>
+      <h4>Refusal is a real answer</h4>
+      <p>"No supported answer" ships as a first-class result. Open the last tab in the demo above — the question AeroBee declines, and the three claims it discarded to get there.</p></div>
+    <div class="tc"><svg viewBox="0 0 24 24"><path d="M7.5 12.5 10.5 15.5 17 9"/><path d="M20 6.4v5.2c0 4.4-3.2 7.6-8 9.4-4.8-1.8-8-5-8-9.4V6.4l8-3z"/></svg>
+      <h4>Advisory, and read-only</h4>
+      <p>AeroBee locates evidence and flags where it's missing. It never determines compliance, minimum-equipment applicability or airworthiness, and it writes nothing back to your systems.</p></div>
+  </div>
+  <div class="why rv">
+    <p class="wk">Why this matters now</p>
+    <p>Europe's proposed aviation-AI framework asks maintenance organisations to demonstrate that an AI's output was grounded in approved data rather than generated. That requirement is where AeroBee started — not something added once the rules appeared.</p>
+  </div>
+</div></section>
+
+<!-- ═══════════ ARCHITECTURE ═══════════ -->
+<section class="band alt" id="platform"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">The platform</p>
+    <h2 class="h2">The Beehive</h2>
+    <p class="lead">Legacy silos are named in every market analysis as the reason aviation AI stalls. AeroBee reads across them rather than replacing them, so adoption doesn't require a migration project.</p>
+  </div>
+
+  <div class="flow rv">
+    <div class="flow-row">
+      <div class="fnode">
+        <p class="fk">Sources</p><h5>Your systems</h5>
+        <ul><li>FDR and QAR data</li><li>Maintenance system</li><li>Technical records</li><li>Manuals and directives</li><li>Parts and tooling</li></ul>
+      </div>
+      <div class="farrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fnode">
+        <p class="fk">01 · Connectors</p><h5>Read-only adapters</h5>
+        <ul><li>One adapter per source</li><li>Page and timestamp anchors preserved</li><li>Nothing written back</li></ul>
+      </div>
+      <div class="farrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fnode acc">
+        <p class="fk">02 · Canonical model</p><h5>One aviation schema</h5>
+        <ul><li>Indexed by tail and ATA chapter</li><li>Part and effectivity aware</li><li>Revision tracked</li></ul>
+      </div>
+      <div class="farrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fnode">
+        <p class="fk">03 · Analysis and retrieval</p><h5>Statistics, then language</h5>
+        <ul><li>Control limits and trends</li><li>Free-text defect matching</li><li>Document retrieval</li></ul>
+      </div>
+      <div class="farrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fnode ver">
+        <p class="fk">04 · Verifier</p><h5>The gate</h5>
+        <ul><li>Claims matched to sources</li><li>Unsourced claims stripped</li><li>Count published</li></ul>
+      </div>
+      <div class="farrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fnode">
+        <p class="fk">Output</p><h5>A cited answer</h5>
+        <ul><li>Plain language</li><li>Every claim traceable</li><li>Logged immutably</li></ul>
+      </div>
+    </div>
+    <div class="flow-notes">
+      <div><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No migration, no replacement</div>
+      <div><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Read-only at every connector</div>
+      <div><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The verifier can only remove, never add</div>
+    </div>
+  </div>
+
+  <div class="layers rv">
+    <div class="layer"><svg viewBox="0 0 24 24"><path d="M3 8h5l2-3h4l2 3h5"/><path d="M3 8v11h18V8"/><path d="M9 19v-5h6v5"/></svg>
+      <div><h4>Connectors</h4><p>Flight data recorders, quick access recorders, satellite downlink, maintenance systems, technical records, manuals, inventory and weather. Read-only, one adapter per source.</p></div>
+      <span class="pill live">FDR decode live</span></div>
+    <div class="layer"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="5" rx="1.4"/><rect x="3.5" y="12" width="17" height="8" rx="1.4"/><path d="M7 16h5"/></svg>
+      <div><h4>Canonical model</h4><p>One schema indexed by tail, ATA chapter, part and effectivity — so a claim about a manual section can be checked against the specific aircraft it was made about.</p></div>
+      <span class="pill live">Built</span></div>
+    <div class="layer"><svg viewBox="0 0 24 24"><path d="M3.5 19h17"/><path d="M4 15.5 8.5 11l3.5 3L20 5.5"/><path d="M4 9.5h16" stroke-dasharray="2.5 2.5"/></svg>
+      <div><h4>Analysis</h4><p>Statistical process control, trend and divergence detection, exceedance classification and reliability. Established aviation methods, correctly applied — not relabelled as AI.</p></div>
+      <span class="pill live">Built</span></div>
+    <div class="layer"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="7" r="2.2"/><circle cx="16" cy="17" r="2.8"/><path d="M10.7 9.4 13.6 15"/><path d="M10.8 7.3l3.9-.2"/></svg>
+      <div><h4>Retrieval and grounding</h4><p>Where AI genuinely earns its place: defect matching across free-text logs, manuals made queryable, and cross-silo correlation no rule engine can express.</p></div>
+      <span class="pill">In development</span></div>
+    <div class="layer"><svg viewBox="0 0 24 24"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8.5 14.5l1.8 1.8 4-4.2"/></svg>
+      <div><h4>Verification and audit</h4><p>The citation verifier, the suppressed-claim counter, and an immutable log of every input, retrieval, output and human action.</p></div>
+      <span class="pill">In development</span></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ GOVERNANCE ═══════════ -->
+<section class="band"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">Your data</p>
+    <h2 class="h2">The questions procurement asks first.</h2>
+    <p class="lead">Answered here rather than in a follow-up call, because these are the right questions and vague answers should worry you.</p>
+  </div>
+  <div class="gov rv">
+    <div class="gcell"><p class="gq">Do you train on our data?</p><p>No. Not on records, not on flight data, not on manuals. Retrieval and grounding only. This isn't a policy position we could quietly change — training would break the citation trail the product is built on.</p></div>
+    <div class="gcell"><p class="gq">Can AeroBee change anything?</p><p>No. Every connector is read-only. There is no write path to a maintenance system, technical log or record of any kind. The software can read your systems and cannot alter them.</p></div>
+    <div class="gcell"><p class="gq">Where does the data live?</p><p>Tenant-isolated, encrypted in transit and at rest, with a Canadian residency option and private deployment available for operators whose contracts require it.</p></div>
+    <div class="gcell"><p class="gq">Who sees flight data?</p><p>Flight data is de-identified before analysis, and crew identity is separated from it, consistent with non-punitive programme requirements. Access is role-based and logged.</p></div>
+    <div class="gcell"><p class="gq">What happens if we leave?</p><p>Your corpus is exported and deleted on request. AeroBee retains no derived index of your data, and no cross-operator pattern sharing happens without a separate, explicit agreement.</p></div>
+    <div class="gcell"><p class="gq">Is this a certified system?</p><p>No, and it doesn't claim to be. AeroBee is ground-based advisory software. It is not installed on aircraft, is not part of any certified system, and makes no airworthiness determinations.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ OBJECTIONS ═══════════ -->
+<section class="band alt"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">Fair questions</p>
+    <h2 class="h2">The objections we hear, answered plainly.</h2>
+  </div>
+  <div class="obj rv" id="obj">
+    <div class="oitem"><button class="oq">We already have a health monitoring platform<span class="ic">+</span></button>
+      <div class="oa"><p>Then keep it. AeroBee doesn't replace a monitoring platform — it reads across it and everything else. A monitoring tool tells you a parameter moved. It can't tell you which open deferral relates to that movement, what was done the last time, or which manual revision applies to this tail. <b>Those answers live in systems your monitoring platform doesn't touch.</b></p></div></div>
+    <div class="oitem"><button class="oq">Our data is a mess<span class="ic">+</span></button>
+      <div class="oa"><p>Everyone's is, and that's the reason this product exists rather than a reason to wait. AeroBee reads records as they are — scanned, inconsistent, spread across formats. <b>It also tells you where the gaps are</b>, which is often the first genuinely useful output an operator gets.</p></div></div>
+    <div class="oitem"><button class="oq">We don't trust AI with maintenance decisions<span class="ic">+</span></button>
+      <div class="oa"><p>Neither do we, and the product is built that way. AeroBee makes no decisions. It locates evidence, cites it, states its assumptions, and refuses when it can't support an answer. <b>Authorised personnel decide, exactly as they do today</b> — the difference is they start with the evidence assembled instead of scattered.</p></div></div>
+    <div class="oitem"><button class="oq">We're too small for something like this<span class="ic">+</span></button>
+      <div class="oa"><p>Small and mid-sized fleets are the entire point. The manufacturers' integrated platforms are priced and staffed for hundreds of aircraft. <b>Below that, the work is done by hand</b> — which is precisely the gap AeroBee was built for.</p></div></div>
+    <div class="oitem"><button class="oq">How long until we see anything useful?<span class="ic">+</span></button>
+      <div class="oa"><p>The first engagement is deliberately narrow: one aircraft, one question, your own data. Read-only connection means no migration and no IT project to schedule. <b>You get a cited answer you can check against what you already know</b> — which is the only honest way to evaluate a tool like this.</p></div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ CALCULATOR ═══════════ -->
+<section class="band" id="worth"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">What it's worth</p>
+    <h2 class="h2">Put your own numbers in.</h2>
+    <p class="lead">The total isn't the point. What matters is how few avoided events it takes to pay for knowing sooner.</p>
+  </div>
+  <div class="calc rv">
+    <div>
+      <div class="ctrl"><label for="s1">Aircraft in fleet <b id="v1">12</b></label><input type="range" id="s1" min="2" max="60" value="12" step="1"></div>
+      <div class="ctrl"><label for="s2">Unscheduled ground events per aircraft, per year <b id="v2">14</b></label><input type="range" id="s2" min="2" max="24" value="14" step="1"></div>
+      <div class="ctrl"><label for="s3">Average hours grounded per event <b id="v3">3</b></label><input type="range" id="s3" min="1" max="12" value="3" step="1"></div>
+      <div class="ctrl"><label for="s4">Your cost per grounded hour <b id="v4">$12,000</b></label><input type="range" id="s4" min="2000" max="80000" value="12000" step="1000"></div>
+      <p class="anote"><b>Assumptions, stated.</b> Defaults use a published US average of roughly 14 unscheduled ground events per aircraft per year, and an industry range of $10,000–150,000 per grounded hour depending on type and route. Replace them with your own — yours are the only ones that matter.</p>
+    </div>
+    <div class="readout">
+      <p class="rk">Annual exposure across your fleet</p>
+      <p class="big" id="out">$6.0M</p>
+      <p class="rs">Time spent on the ground, priced at your own rate.</p>
+      <div class="rsplit">
+        <div>Shorten 1 event in 10<b id="o1">$605k</b></div>
+        <div>Break-even at<b id="o2">0.4 events</b></div>
+        <div>Per aircraft, per year<b id="o3">$504k</b></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ APPS ═══════════ -->
+<section class="band alt"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">The Studio</p>
+    <h2 class="h2">Applications named after outcomes.</h2>
+    <p class="lead">Each one runs on the same engine, the same corpus and the same citation rules.</p>
+  </div>
+  <div class="apps rv">
+    <div class="app now"><p class="bd">Available now</p><h4>Records Integrity</h4>
+      <p>Find every gap in an aircraft's records before the buyer's inspector does. Broken back-to-birth chains, unevidenced directives and unsigned entries, each cited to the page it's missing from.</p>
+      <p class="fact">Where a part's history can't be proven, it counts as <b>zero life remaining</b> — however many cycles are actually left on it.</p></div>
+    <div class="app"><p class="bd">Pilot stage</p><h4>Alert-to-Action</h4>
+      <p>Turn an inflight technical alert into a cited ground-response plan — probable cause, prior occurrences, technician, tooling and candidate parts — before the aircraft lands.</p>
+      <p class="fact">Target: cut alert-triage time <b>by a third</b>, with zero fabricated citations.</p></div>
+    <div class="app"><p class="bd">Pilot stage</p><h4>Flight Data Intelligence</h4>
+      <p>Exceedance detection, approach stability, event patterns and risk classification for operators who can't staff a full analyst team. De-identified before analysis, non-punitive by design.</p>
+      <p class="fact">Cost and staffing are the two barriers most often cited for keeping small operators out of flight data monitoring.</p></div>
+    <div class="app"><p class="bd">Roadmap</p><h4>Engine, Fuel and Emissions</h4>
+      <p>Same corpus, same engine, same citations. Working dashboards already exist in the technical demonstrator, built on real recorder data rather than mockups.</p>
+      <p class="fact">Prototype runs on <b>two full-rate FDR decodes</b> from a real airframe.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ PATHS + CLOSE ═══════════ -->
+<section class="band"><div class="shell">
+  <div class="head-l rv">
+    <p class="eyebrow">Working together</p>
+    <h2 class="h2">Three ways in.</h2>
+    <p class="lead">Different people arrive here for different reasons. Each of these starts with a conversation, not a contract.</p>
+  </div>
+  <div class="paths rv">
+    <div class="path"><p class="pk">For operators and MROs</p><h4>Run a design pilot</h4>
+      <p>One aircraft, one question, your own data, read-only. You get a cited answer to check against what you already know. We get the honest feedback that makes the product real.</p>
+      <p class="go">Start with one question →</p></div>
+    <div class="path"><p class="pk">For data and platform partners</p><h4>Become a connector</h4>
+      <p>If you move aircraft data — telemetry, recorder downloads, maintenance platforms — AeroBee is the intelligence and citation layer on top. Non-exclusive, with each side keeping its own technology.</p>
+      <p class="go">Discuss an integration →</p></div>
+    <div class="path"><p class="pk">For universities and research programmes</p><h4>Work on the hard part</h4>
+      <p>Verifying that a language model's output is grounded in approved technical data is an open research problem with real safety consequences. We're building the evaluation harness for it.</p>
+      <p class="go">Explore a collaboration →</p></div>
+  </div>
+</div></section>
+
+<section class="close"><div class="shell">
+  <h2 class="h2 rv">Bring us one aircraft and one question.</h2>
+  <p class="lead rv">We'll answer it with citations, or tell you exactly why we can't. Both are worth knowing before you commit to anything.</p>
+  <div class="cta rv"><a class="btn-p" href="#demo">Replay the demo</a><a class="btn-s" href="#worth">Price your exposure</a></div>
+</div></section>
+
+<footer><div class="shell">
+  <div class="fg">
+    <div class="fc"><b>AeroBee</b> · Vancouver, British Columbia<br>The Beehive, platform · The Bees, edge · The Studio, applications</div>
+    <div class="fc"><b>Advisory software.</b> AeroBee makes no airworthiness, compliance or minimum-equipment determinations. Authorised personnel retain full decision authority at all times.</div>
+  </div>
+  <p class="srcs"><b>Sources and status.</b> Ground-event hourly cost and the US per-aircraft event frequency are published industry estimates, quoted as ranges rather than as your figures. The regulatory framing reflects proposed European aviation-AI guidance at consultation stage — direction of travel, not a compliance claim. All fleet data shown is simulated for demonstration except the flight recorder decode. Every number here is indicative and should be validated against your own operation before it informs a decision, which is the same standard we hold the product to.</p>
+</div></footer>
+
+<script>
+/* ═══════ theme ═══════ */
+const root=document.documentElement,tsw=document.getElementById('tsw');
+tsw.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  root.setAttribute('data-theme',b.dataset.t);
+  tsw.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));});
+
+/* ═══════════════ CHART LIBRARY ═══════════════ */
+const W=700,H=230,PL=54,PR=26,PT=22,PB=34;
+const sx=(i,n)=>PL+i*(W-PL-PR)/(n-1);
+const sy=(v,lo,hi)=>H-PB-((v-lo)/(hi-lo))*(H-PT-PB);
+const frame=(lo,hi,ticks,xlabs,unit)=>{
+ let s=`<line class="axis" x1="${PL}" y1="${H-PB}" x2="${W-PR}" y2="${H-PB}"/>`;
+ ticks.forEach(t=>{const y=sy(t,lo,hi);
+  s+=`<line class="grid" x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}"/>
+      <text class="lbl" x="${PL-9}" y="${y+3.5}" text-anchor="end">${t}</text>`});
+ if(unit)s+=`<text class="lbl" x="${PL-9}" y="${PT-8}" text-anchor="end">${unit}</text>`;
+ xlabs.forEach(l=>s+=`<text class="lbl" x="${l[0]}" y="${H-PB+16}" text-anchor="${l[2]||'middle'}">${l[1]}</text>`);
+ return s;};
+const poly=(pts,cls)=>`<polyline class="${cls}" points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}"/>`;
+const wrapViz=(t,k,inner,legend)=>`<div class="viz"><div class="vh"><span class="vt">${t}</span><span class="vk">${k}</span></div>
+  <svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t}">${inner}</svg>${legend||''}</div>`;
+
+/* 1 · engine divergence */
+function chDiverge(){
+ const e1=[798,799,801,803,805,806,808,809,810,811,812,812],
+       e2=[796,797,798,798,799,799,800,800,800,801,801,801],lo=792,hi=816,n=12;
+ const p1=e1.map((v,i)=>[sx(i,n),sy(v,lo,hi)]),p2=e2.map((v,i)=>[sx(i,n),sy(v,lo,hi)]);
+ let s=frame(lo,hi,[795,800,805,810,815],[[PL,'22 months ago','start'],[W-PR,'now','end']],'°C');
+ s+=`<polygon class="band fade" points="${p1.concat([...p2].reverse()).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}"/>`;
+ s+=poly(p2,'s2 draw')+poly(p1,'s1 draw');
+ const l1=p1[n-1],l2=p2[n-1];
+ s+=`<g class="fade"><line class="lead-l" x1="${l1[0]}" y1="${l1[1]}" x2="${l1[0]-58}" y2="${l1[1]-22}"/>
+  <text class="cal" x="${l1[0]-60}" y="${l1[1]-26}" text-anchor="end">+11 °C gap</text>
+  <circle class="pt" cx="${l1[0]}" cy="${l1[1]}" r="3.6"/><circle class="pt" cx="${l2[0]}" cy="${l2[1]}" r="3" opacity=".55"/></g>`;
+ return wrapViz('Takeoff temperature, engine 1 against engine 2','412 departures · 8 Hz peak',s,
+  `<div class="legend"><span><i style="background:var(--blue)"></i>Engine 1</span><span><i style="background:var(--faint)"></i>Engine 2</span><span><i style="background:var(--honey)"></i>Divergence</span></div>`);
+}
+/* 2 · control chart */
+function chControl(){
+ const d=[2,2.4,3,3.6,4.4,5,6,7.2,8.2,9.1,10.2,11],lo=0,hi=13,n=12,ucl=8.4,cl=2;
+ const p=d.map((v,i)=>[sx(i,n),sy(v,lo,hi)]);
+ let s=frame(lo,hi,[0,3,6,9,12],[[PL,'wash','start'],[sx(8.6,n),'limit crossed'],[W-PR,'now','end']],'Δ °C');
+ s+=`<line class="lim" x1="${PL}" y1="${sy(ucl,lo,hi)}" x2="${W-PR}" y2="${sy(ucl,lo,hi)}"/>
+  <text class="cal" x="${W-PR}" y="${sy(ucl,lo,hi)-7}" text-anchor="end">upper control limit</text>
+  <line class="grid" x1="${PL}" y1="${sy(cl,lo,hi)}" x2="${W-PR}" y2="${sy(cl,lo,hi)}"/>`;
+ s+=poly(p,'s1 draw');
+ s+=`<g class="fade">`+p.map((q,i)=>`<circle class="pt${d[i]>ucl?' out':''}" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${d[i]>ucl?3.8:2.6}"/>`).join('')+`</g>`;
+ s+=`<g class="fade"><text class="cal" x="${sx(11,n)}" y="${sy(11,lo,hi)-12}" text-anchor="end">3 points beyond limit</text></g>`;
+ return wrapViz('Inter-engine delta against control limits','baseline reset at last wash',s);
+}
+/* 3 · runway bars */
+function chRunway(){
+ const d=[['34L',7],['12',1],['25',1],['16R',0]],lo=0,hi=8,bw=64;
+ let s=frame(lo,hi,[0,2,4,6,8],[],'events');
+ d.forEach((r,i)=>{const x=PL+40+i*140,h=(H-PB)-sy(r[1],lo,hi);
+  s+=`<rect class="bar ${i===0?'hot':'cool'} grow" style="animation-delay:${i*90}ms" x="${x}" y="${sy(r[1],lo,hi)}" width="${bw}" height="${Math.max(h,0.6)}" rx="4"/>
+   <text class="lbl" x="${x+bw/2}" y="${H-PB+16}" text-anchor="middle">RWY ${r[0]}</text>
+   <text class="val fade" x="${x+bw/2}" y="${sy(r[1],lo,hi)-8}" text-anchor="middle">${r[1]}</text>`});
+ s+=`<g class="fade"><text class="cal" x="${W-PR}" y="${PT+6}" text-anchor="end">78% of events at one runway</text></g>`;
+ return wrapViz('Unstable approaches by arrival runway','118 flights this quarter',s);
+}
+/* 4 · gate dot plot */
+function chGate(){
+ const d=[[19,'34L'],[22,'34L'],[16,'34L'],[15,'12'],[17,'34L'],[18,'34L'],[16,'34L'],[20,'34L'],[15,'25']],lo=10,hi=25;
+ let s=frame(lo,hi,[10,15,20,25],[[PL,'slower','start'],[W-PR,'faster','end']],'Vref +');
+ s+=`<line class="lim" x1="${sx(0,2)}" y1="${H-PB-4}" x2="${sx(0,2)}" y2="${PT}"/>`;
+ const gx=PL+((15-lo)/(hi-lo))*(W-PL-PR);
+ s=frame(lo,hi,[],[],'')+`<line class="axis" x1="${PL}" y1="${H-PB}" x2="${W-PR}" y2="${H-PB}"/>`;
+ [10,15,20,25].forEach(t=>{const x=PL+((t-lo)/(hi-lo))*(W-PL-PR);
+  s+=`<line class="grid" x1="${x}" y1="${PT}" x2="${x}" y2="${H-PB}"/><text class="lbl" x="${x}" y="${H-PB+16}" text-anchor="middle">Vref+${t}</text>`});
+ s+=`<line class="lim" x1="${gx}" y1="${PT}" x2="${gx}" y2="${H-PB}"/>
+  <text class="cal" x="${gx+7}" y="${PT+10}">gate limit</text>`;
+ d.forEach((r,i)=>{const x=PL+((r[0]-lo)/(hi-lo))*(W-PL-PR),y=PT+16+i*17;
+  s+=`<circle class="pt${r[1]==='34L'?' out':''}" cx="${x}" cy="${y}" r="4.4" opacity=".9"/>
+   <text class="lbl" x="${PL-9}" y="${y+3.5}" text-anchor="end">${r[1]}</text>`});
+ return wrapViz('Energy at the 1,000 ft gate, each breaching approach','marked by arrival runway',s,
+  `<div class="legend"><span><i style="background:var(--warn)"></i>Runway 34L</span><span><i style="background:var(--blue)"></i>Other runways</span></div>`);
+}
+/* 5 · fuel waterfall */
+function chFuel(){
+ const d=[['Taxi',10],['Climb',30],['Cruise',400],['Descent',-20]],lo=-60,hi=460;
+ let s=frame(lo,hi,[0,150,300,450],[],'lb vs plan');
+ const zero=sy(0,lo,hi);
+ s+=`<line class="axis" x1="${PL}" y1="${zero}" x2="${W-PR}" y2="${zero}"/>`;
+ d.forEach((r,i)=>{const x=PL+34+i*138,v=r[1],y=v>0?sy(v,lo,hi):zero,h=Math.abs(zero-sy(v,lo,hi));
+  s+=`<rect class="${v>200?'bar hot':v>0?'bar cool':'neg'} grow" style="animation-delay:${i*90}ms;transform-origin:center ${v>0?'bottom':'top'}" x="${x}" y="${y}" width="70" height="${Math.max(h,1)}" rx="4"/>
+   <text class="lbl" x="${x+35}" y="${H-PB+16}" text-anchor="middle">${r[0]}</text>
+   <text class="val fade" x="${x+35}" y="${v>0?y-8:y+h+15}" text-anchor="middle">${v>0?'+':''}${v}</text>`});
+ s+=`<g class="fade"><text class="cal" x="${W-PR}" y="${PT+6}" text-anchor="end">cruise carries 95% of the excess</text></g>`;
+ return wrapViz('Fuel burn against flight plan, by phase','one rotation · +420 lb total',s);
+}
+/* 6 · flow vs altitude */
+function chAlt(){
+ const fl=[280,300,320,340,360,380,400],ff=[3.42,3.28,3.16,3.07,3.02,3.05,3.14],lo=2.95,hi=3.5,n=7;
+ const p=ff.map((v,i)=>[sx(i,n),sy(v,lo,hi)]);
+ let s=frame(lo,hi,[3.0,3.1,3.2,3.3,3.4],fl.map((f,i)=>[sx(i,n),'FL'+f]),'lb/nm');
+ s+=poly(p,'s1 draw');
+ const flownIdx=3,optIdx=4;
+ s+=`<g class="fade">
+  <circle class="pt out" cx="${p[flownIdx][0]}" cy="${p[flownIdx][1]}" r="4.6"/>
+  <text class="cal" x="${p[flownIdx][0]}" y="${p[flownIdx][1]+22}" text-anchor="middle">flown</text>
+  <circle class="pt" cx="${p[optIdx][0]}" cy="${p[optIdx][1]}" r="4.6"/>
+  <text class="cal" x="${p[optIdx][0]+6}" y="${p[optIdx][1]-12}">optimum</text>
+  <line class="lead-l" x1="${p[flownIdx][0]}" y1="${p[flownIdx][1]}" x2="${p[optIdx][0]}" y2="${p[optIdx][1]}"/></g>`;
+ return wrapViz('Specific fuel burn against cruise altitude','both engines · 47 sectors',s);
+}
+/* 7 · ranked exposures */
+function chRank(){
+ const d=[['Engine 1 hot-section drift','can ground an aircraft',.88,'hot'],
+          ['Approach pattern, one runway','safety exposure',.56,'cool'],
+          ['Cruise altitude fuel penalty','operating cost',.32,'cool']];
+ let s='';
+ d.forEach((r,i)=>{const y=PT+8+i*66,w=(W-PL-PR-120)*r[2];
+  s+=`<text class="val" x="${PL}" y="${y}">${r[0]}</text>
+   <text class="lbl" x="${W-PR}" y="${y}" text-anchor="end">${r[1]}</text>
+   <rect class="bar" x="${PL}" y="${y+10}" width="${W-PL-PR}" height="9" rx="4.5" opacity=".14"/>
+   <rect class="bar ${r[3]} grow" style="animation-delay:${i*110}ms;transform-origin:left center;animation-name:gw" x="${PL}" y="${y+10}" width="${w}" height="9" rx="4.5"/>`});
+ return wrapViz('This month\'s exposures, ranked by cost-weighted risk','no cross-domain weighting applied',s);
+}
+/* 8 · risk matrix */
+function chMatrix(){
+ const cols=['Rare','Unlikely','Possible','Likely'],rows=['Major','Moderate','Minor'];
+ const cw=(W-PL-PR)/4,rh=(H-PT-PB)/3;
+ let s='';
+ for(let r=0;r<3;r++)for(let c=0;c<4;c++){
+  const sev=(3-r)*(c+1),tone=sev>=8?.22:sev>=5?.13:.06;
+  s+=`<rect x="${PL+c*cw}" y="${PT+r*rh}" width="${cw-2}" height="${rh-2}" rx="4" fill="var(--honey)" opacity="${tone}"/>`}
+ cols.forEach((c,i)=>s+=`<text class="lbl" x="${PL+i*cw+cw/2}" y="${H-PB+16}" text-anchor="middle">${c}</text>`);
+ rows.forEach((r,i)=>s+=`<text class="lbl" x="${PL-9}" y="${PT+i*rh+rh/2+3.5}" text-anchor="end">${r}</text>`);
+ const pts=[[2,0,'Engine 1','out'],[1,1,'Approach',''],[3,2,'Fuel','']];
+ pts.forEach((p,i)=>{const x=PL+p[0]*cw+cw/2,y=PT+p[1]*rh+rh/2;
+  s+=`<g class="fade" style="animation-delay:${.4+i*.12}s"><circle class="pt ${p[3]}" cx="${x}" cy="${y}" r="6"/>
+   <text class="cal" x="${x}" y="${y-13}" text-anchor="middle">${p[2]}</text></g>`});
+ return wrapViz('The same three findings on a probability and consequence view','severity scale is the operator\'s own',s);
+}
+/* 9 · refusal: parameters in limits */
+function chInLimits(){
+ const d=[2985,2992,2988,2996,2990,2984,2993,2987,2995,2989,2991,2988],lo=2850,hi=3100,n=12;
+ const p=d.map((v,i)=>[sx(i,n),sy(v,lo,hi)]);
+ let s=frame(lo,hi,[2900,2950,3000,3050],[[PL,'40 min ago','start'],[W-PR,'now','end']],'psi');
+ s+=`<line class="lim" x1="${PL}" y1="${sy(3060,lo,hi)}" x2="${W-PR}" y2="${sy(3060,lo,hi)}"/>
+  <line class="lim" x1="${PL}" y1="${sy(2900,lo,hi)}" x2="${W-PR}" y2="${sy(2900,lo,hi)}"/>
+  <text class="cal" x="${W-PR}" y="${sy(3060,lo,hi)-7}" text-anchor="end">control limits</text>`;
+ s+=poly(p,'s1 draw');
+ s+=`<g class="fade"><text class="cal" x="${PL}" y="${PT+6}">every sample inside limits · nothing to report</text></g>`;
+ return wrapViz('Hydraulic system 2 pressure, current state','what AeroBee can actually show you',s);
+}
+/* 10 · refusal: claim suppression */
+function chSuppress(){
+ const total=9,killed=3,r=13,gap=(W-PR-22-(PL+22))/8;
+ let s=`<text class="val" x="${PL}" y="${PT+10}">9 claims generated</text>
+  <text class="cal" x="${W-PR}" y="${PT+10}" text-anchor="end">3 removed by the verifier</text>`;
+ for(let i=0;i<total;i++){
+  const x=PL+22+i*gap,y=H/2+6,out=i>=total-killed;
+  s+=`<g class="fade" style="animation-delay:${.25+i*.07}s">
+   <circle cx="${x}" cy="${y}" r="${r}" fill="${out?'none':'var(--blue-soft)'}" stroke="${out?'var(--warn)':'var(--blue)'}" stroke-width="1.6" ${out?'stroke-dasharray="3 3"':''}/>
+   ${out?`<path d="M${x-6} ${y-6}L${x+6} ${y+6}M${x+6} ${y-6}L${x-6} ${y+6}" stroke="var(--warn)" stroke-width="1.8" fill="none"/>`
+        :`<path d="M${x-5} ${y}l3.6 3.8 6.4-7" stroke="var(--blue)" stroke-width="2" fill="none" stroke-linecap="round"/>`}</g>`}
+ s+=`<text class="lbl" x="${PL+22}" y="${H-PB+2}">6 emitted, each with a source</text>`;
+ return wrapViz('What the verifier did with this query','a probability figure, a wear hypothesis, a recommendation',s);
+}
+
+/* ═══════ sources ═══════ */
+const SRC={
+ E1:'FDR · takeoff EGT peak, 412 departures over 22 months',
+ E2:'FDR · inter-engine EGT delta at takeoff power',
+ E3:'Work order 2214 · compressor wash, 2 Nov 2024',
+ E4:'AMM 71-00-00 · engine condition monitoring limits',
+ S1:'FDM · approach events, 118 flights this quarter',
+ S2:'FDM · stabilised approach gate at 1,000 ft AGL',
+ S3:'Risk table · probability against severity',
+ F1:'FDR · fuel quantity deltas by phase, 47 sectors',
+ F2:'FDR · fuel flow against pressure altitude',
+ F3:'Sector record · OERK–OENN–OERK, 10 Aug 2021',
+ M1:'Composite · findings from three applications, July 2026',
+ M2:'Utilisation · monthly block hours',
+ X1:'Query returned no qualifying source'};
+
+const Q=[
+{tab:'Maintenance',q:'Is engine 1 on N310AB deteriorating, and what do I do about it?',
+ head:'Yes. Engine 1 is drifting away from engine 2 at takeoff power.',
+ sub:'The temperature gap between the two engines has widened from <b>+2 °C to +11 °C over 22 months</b>, and crossed its upper control limit <b>47 departures ago</b>.',
+ dec:'Borescope the engine 1 hot section at the next scheduled A-check, and repeat the compressor wash now.',
+ st:[['Action cost','~$8k'],['Grounded-hour exposure','$10k–150k'],['Decision window','~340 hrs']],
+ viz1:chDiverge,viz3:chControl,
+ ev:[['Trend','Engine 1 takeoff temperature rising <b>0.42 °C per 100 cycles</b>. Engine 2 flat within noise.','E1'],
+     ['Divergence','Gap widened <b>+2 to +11 °C</b> and has been beyond the control limit for the last <b>47 departures</b>.','E2'],
+     ['History','Last wash <b>2 Nov 2024</b> recovered 6 °C. That recovery has since decayed.','E3'],
+     ['Limit','The manual\'s own monitoring threshold is <b>not yet reached</b>. This is early detection, not an exceedance.','E4']],
+ mth:'Smoothed takeoff-peak temperature per engine <s>→</s> inter-engine delta series <s>→</s> control limits set from the post-wash baseline <s>→</s> linear trend fit with recovery decay since the last wet wash.',
+ asm:['Takeoff power settings treated as comparable. Derate variation is not normalised.',
+      'Baseline resets at the 2 Nov 2024 wash. Earlier data is excluded from the limits.',
+      'Ambient correction uses outside air temperature at brake release, not a full ISA correction.',
+      'Assumes no engine module change in the period. Verify against the removal log.',
+      'These are statistical limits, not manual limits. They flag drift, not airworthiness.'],
+ tbl:[['Departure','Engine 1','Engine 2','Gap'],['412 · now','812 °C','801 °C','+11'],['390','809 °C','800 °C','+9'],['365 · limit crossed','807 °C','799 °C','+8.4'],['340','805 °C','799 °C','+6'],['280','801 °C','798 °C','+3']],
+ mark:2,
+ prov:[['Connector','FDR full-rate decode'],['Frame definition','A310-300 · 64 wps · verified'],['Sample rate','8 Hz through takeoff'],['Records ingested','412 departures'],['Last ingest','22 Jul 2026 · 04:11Z'],['Claims verified','17 of 17']],
+ foot:[['Answered in','4.2 s',''],['Claims','17',''],['Cited','17','g'],['Suppressed','0','g'],['Uncited','0','g']]},
+
+{tab:'Safety',q:'Which approaches this quarter were unstable — is it one crew or one runway?',
+ head:'It\'s a runway, not a crew.',
+ sub:'<b>Nine unstable approaches in 118 flights.</b> Seven of the nine were into the same arrival runway, flown by four different crews.',
+ dec:'Brief the arrival profile for that runway and review the descent-planning gate. This is not a crew performance issue.',
+ st:[['Events','9 of 118'],['Concentration','78% one runway'],['Crews involved','4 of 6']],
+ viz1:chRunway,viz3:chGate,
+ ev:[['Events','Nine approaches breached the stabilisation gate, with <b>high energy at 1,000 ft</b> in eight of nine.','S1'],
+     ['Pattern','Seven of nine at one runway across <b>four distinct crews</b> — crew is not the common factor.','S2'],
+     ['Severity','Eight classified <b>medium</b>, one <b>high</b> on the operator\'s own risk table.','S3']],
+ mth:'Gate check at 1,000 ft for airspeed, descent rate, configuration and thrust <s>→</s> breach classified by margin <s>→</s> grouped by runway, anonymous crew key and time of day <s>→</s> concentration tested for significance.',
+ asm:['De-identified before analysis. Crew identity is separated from flight data, per non-punitive programme requirements.',
+      'Gate criteria are the operator\'s configured defaults, not a regulatory limit.',
+      'One quarter, 118 flights. The runway concentration is suggestive, not conclusive at this sample size.',
+      'No wind shear or gust-front data was correlated in this pass.'],
+ tbl:[['Flight','Runway','At gate','Severity'],['AB0388','34L','Vref +22','high'],['AB0412','34L','Vref +19','medium'],['AB0301','34L','Vref +17','medium'],['AB0361','34L','Vref +16','medium'],['AB0344','12','Vref +15','medium']],
+ prov:[['Connector','FDM event pipeline'],['De-identification','Applied before analysis'],['Event definitions','Operator config v3'],['Flights analysed','118'],['Last ingest','23 Jul 2026 · 22:40Z'],['Claims verified','11 of 11']],
+ foot:[['Answered in','3.1 s',''],['Claims','11',''],['Cited','11','g'],['Suppressed','0','g'],['Uncited','0','g']]},
+
+{tab:'Fuel and ops',q:'Where did we lose fuel on this route, and what is it worth?',
+ head:'In the cruise, not the climb.',
+ sub:'On the Riyadh–Neom rotation, cruise burn ran <b>3.4% above the flight-plan figure</b> — <b>400 of the 420 lb</b> of total excess, concentrated in the segment flown 2,000 ft below optimum altitude.',
+ dec:'Request the higher cruise level on this rotation, or replan the step climb. Confirm clearance availability before booking the saving.',
+ st:[['Excess burn','3.4% cruise'],['Per rotation','+420 lb'],['Annualised','indicative']],
+ viz1:chFuel,viz3:chAlt,
+ ev:[['By phase','Climb and descent within plan. <b>Cruise 3.4% over</b> the flight-plan burn.','F1'],
+     ['Cause','Flown <b>2,000 ft below optimum</b> for 41% of cruise. The flow-against-altitude curve confirms the penalty.','F2'],
+     ['Sector','Reference rotation <b>OERK–OENN–OERK, 10 Aug 2021</b>.','F3']],
+ mth:'Fuel quantity deltas by phase <s>→</s> compared against flight-plan burn <s>→</s> fuel flow regressed on pressure altitude and gross weight <s>→</s> penalty attributed to altitude deviation.',
+ asm:['Uses fuel quantity indication, not the flowmeter totaliser. Quantity has coarser resolution.',
+      'Flight-plan burn is the reference. Plan accuracy is not independently validated.',
+      'Single rotation. Annualising assumes comparable conditions and is indicative only.',
+      'No wind-optimality analysis — the lower level may have been the correct wind choice.',
+      'Clearance availability is not modelled. This saving may not be obtainable in practice.'],
+ tbl:[['Phase','Actual','Plan','Delta'],['Cruise','12,140 lb','11,740 lb','+400'],['Climb','4,820 lb','4,790 lb','+30'],['Taxi','410 lb','400 lb','+10'],['Descent','780 lb','800 lb','−20'],['Total','18,150 lb','17,730 lb','+420'],],
+ mark:0,
+ prov:[['Connector','FDR full-rate decode'],['Parameters','FQ · FF · ALT · GW · OAT'],['Sectors analysed','47'],['Reference sector','10 Aug 2021'],['Last ingest','22 Jul 2026 · 04:11Z'],['Claims verified','9 of 9']],
+ foot:[['Answered in','2.8 s',''],['Claims','9',''],['Cited','9','g'],['Suppressed','0','g'],['Uncited','0','g']]},
+
+{tab:'Management',q:'What are my top three exposures this month, and what do they cost?',
+ head:'Three. Only one of them can ground an aircraft.',
+ sub:'Ranked by cost-weighted risk: <b>engine 1 hot-section drift</b>, a <b>runway-specific approach pattern</b>, and a <b>cruise altitude fuel penalty</b>.',
+ dec:'Fund the engine 1 borescope at the next A-check. The other two are process changes with no capital requirement.',
+ st:[['Capital ask','~$8k'],['Downside avoided','ground events'],['No-cost fixes','2 of 3']],
+ viz1:chRank,viz3:chMatrix,
+ ev:[['Rank 1','Engine 1 temperature divergence — the only finding with an <b>unscheduled removal pathway</b>.','M1'],
+     ['Rank 2','Nine unstable approaches at one runway — <b>safety exposure, no direct cost</b>.','M1'],
+     ['Rank 3','Cruise altitude fuel penalty — <b>recurring operating cost, no risk pathway</b>.','M1'],
+     ['Context','Utilisation flat month on month. These findings are not the result of flying more.','M2']],
+ mth:'Findings from each application scored on probability against consequence <s>→</s> consequence in cost where a cost pathway exists, in severity where it does not <s>→</s> ranked, with no cross-domain weighting applied.',
+ asm:['Cost and safety exposure are not commensurable. This ranking places them side by side; it does not convert safety into dollars.',
+      'The grounded-hour range is an industry figure, not your operation. Substitute your own.',
+      'One month of findings. This is not a trend.',
+      'Composite of three analyses, each carrying the assumptions listed under its own answer.'],
+ tbl:[['Finding','Type','Cost path'],['Engine 1 drift','condition','yes'],['Approach pattern','safety','no'],['Fuel penalty','operating','yes']],
+ prov:[['Sources','3 applications'],['Findings composited','3'],['Period','July 2026'],['Last refresh','24 Jul 2026 · 06:00Z'],['Weighting','None applied'],['Claims verified','8 of 8']],
+ foot:[['Answered in','5.4 s',''],['Claims','8',''],['Cited','8','g'],['Suppressed','0','g'],['Uncited','0','g']]},
+
+{tab:'The refusal',rf:true,q:'Will the number 2 hydraulic pump fail in the next 100 hours?',
+ head:'No supported answer.',
+ sub:'AeroBee won\'t predict this, and it tells you why rather than producing a number that looks like an answer.',
+ dec:'What it can tell you instead: no hydraulic parameter on this tail is currently outside its control limits, and there is no prior pump failure in the ingested history to compare against.',
+ st:[['Failure population','none'],['Parameters in limits','all'],['Claims suppressed','3']],
+ viz1:chInLimits,viz3:chSuppress,
+ ev:[['Why not','A remaining-life figure needs a failure population. This tail has <b>no recorded hydraulic pump failure</b> to learn from.','X1'],
+     ['Suppressed','Three claims were generated and <b>removed by the verifier</b> — a probability figure, a wear hypothesis and a component recommendation. None had a source.','X1'],
+     ['Instead','Current parameters, control-limit status and the manual\'s own inspection interval. All citable.','X1'],
+     ['Plainly','Any vendor quoting remaining useful life on a fleet this size is extrapolating from a population <b>you don\'t have</b>.','X1']],
+ mth:'Query classified as a prediction request <s>→</s> failure population lookup returned nothing <s>→</s> remaining-life path unavailable <s>→</s> generation constrained to citable current-state facts <s>→</s> three unsourced claims stripped before output.',
+ asm:['This is the honest limit of a small fleet, not a limit of the software.',
+      'A larger fleet, or a de-identified cross-operator pool with explicit data rights, would change this answer.',
+      'Control limits detect drift from a baseline. They do not forecast failure. Those are different claims and we won\'t blur them.'],
+ tbl:[],
+ prov:[['Failure records','None'],['Prediction path','Unavailable'],['Claims generated','9'],['Claims suppressed','3'],['Claims emitted','6'],['Claims verified','6 of 6']],
+ foot:[['Answered in','1.9 s',''],['Claims','9',''],['Cited','6','g'],['Suppressed','3','h'],['Uncited','0','g']]}
+];
+
+const LV=[['L1','The answer','plain language'],['L2','The evidence','claim and source'],
+ ['L3','The method','maths and assumptions'],['L4','The data','the parameters'],['L5','The source','connector and frame']];
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* reveal */
+if('IntersectionObserver' in window){
+ const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),
+  {threshold:.08,rootMargin:'0px 0px -6% 0px'});
+ $$('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%3,2)*70)+'ms';io.observe(el)});
+}else $$('.rv').forEach(el=>el.classList.add('in'));
+
+const nav=$('#nav'),prog=$('#prog');
+addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>30);
+ const h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?scrollY/h*100:0)+'%';},{passive:true});
+
+/* hero */
+const HERO='Yes — the gap between engines has widened to <b>+11 °C</b> at takeoff, and has been beyond its control limit for 47 departures '+
+ '<button class="chip" data-s="E2">E2</button>, with the last wash recovery now decayed '+
+ '<button class="chip" data-s="E3">E3</button>. Borescope at the next A-check.';
+const heroA=$('#heroA'),heroSrc=$('#heroSrc'),heroViz=$('#heroViz');
+function wire(scope,out){scope.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+ scope.querySelectorAll('.chip').forEach(x=>x.classList.remove('lit'));c.classList.add('lit');
+ const o=out?scope.querySelector(out):heroSrc;if(o)o.textContent='Source · '+SRC[c.dataset.s];});}
+function heroDone(){wire(heroA);heroViz.innerHTML=chDiverge();
+ setTimeout(()=>{const f=heroA.querySelector('.chip');if(f)f.click();},600);}
+if(reduced){heroA.innerHTML=HERO;heroDone();}
+else{const w=HERO.split(' ');let i=0;const t=setInterval(()=>{heroA.innerHTML=w.slice(0,++i).join(' ');
+ if(i>=w.length){clearInterval(t);heroDone();}},44);}
+
+/* console */
+const tabsEl=$('#tabs'),railEl=$('#rail'),pagesEl=$('#pages'),qlineEl=$('#qline'),statusEl=$('#status'),conEl=$('#console');
+let li=0,cq=0;
+Q.forEach((q,i)=>{const b=document.createElement('button');
+ b.className='ctab'+(i===0?' on':'')+(q.rf?' rf':'');b.textContent=q.tab;b.setAttribute('role','tab');
+ b.onclick=()=>setQ(i);tabsEl.appendChild(b);});
+railEl.innerHTML=LV.map((l,i)=>`<button class="lvl${i===0?' on':''}" data-i="${i}">
+ <div class="k">${l[0]}</div><div class="t">${l[1]}</div><div class="s">${l[2]}</div></button>`).join('');
+railEl.querySelectorAll('.lvl').forEach(k=>k.onclick=()=>{li=+k.dataset.i;render();});
+
+function body(q,i){
+ if(i===0)return `<div class="p-head">${q.head}</div><p class="p-sub">${q.sub}</p>
+  ${q.viz1?q.viz1():''}
+  <div class="decide"><p class="dk">${q.rf?'What it can answer instead':'The decision'}</p><p>${q.dec}</p>
+  <div class="dstats">${q.st.map(s=>`<div>${s[0]}<b>${s[1]}</b></div>`).join('')}</div></div>`;
+ if(i===1)return q.ev.map(e=>`<div class="ev"><span class="ek">${e[0]}</span>
+  <span class="et">${e[1]} <button class="chip" data-s="${e[2]}" title="${SRC[e[2]]}">${e[2]}</button></span></div>`).join('')
+  +`<p class="chip-out" id="mout"></p>`;
+ if(i===2)return `<p class="mth">${q.mth}</p>${q.viz3?q.viz3():''}
+  <div class="asm"><p class="ak">Assumptions behind this answer</p><ul>${q.asm.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
+ if(i===3)return q.tbl.length
+  ?`<table class="dt"><thead><tr>${q.tbl[0].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${
+    q.tbl.slice(1).map((r,ri)=>`<tr class="${q.mark===ri?'mk':''}">${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--faint)">Extract shown. The full parameter set opens in the technical demonstrator.</p>`
+  :`<p class="p-sub" style="margin:0">No qualifying data rows exist for this query. That absence <b>is</b> the answer — and it's recorded as one.</p>`;
+ return `<div class="pgrid">${q.prov.map((p,k)=>`<div class="pc${k===q.prov.length-1?' v':''}"><div class="pk">${p[0]}</div><div class="pv">${p[1]}</div></div>`).join('')}</div>`;
+}
+function render(){
+ const q=Q[cq];
+ pagesEl.innerHTML=`<div class="page on">${body(q,li)}</div>`;
+ wire(pagesEl,'#mout');
+ railEl.querySelectorAll('.lvl').forEach(k=>k.classList.toggle('on',+k.dataset.i===li));
+}
+function setQ(n){cq=n;const q=Q[n];
+ [...tabsEl.children].forEach((b,j)=>b.classList.toggle('on',j===n));
+ conEl.classList.toggle('rf',!!q.rf);
+ qlineEl.innerHTML='<b>Asked:</b> '+q.q;
+ statusEl.innerHTML=q.foot.map(f=>`<div class="${f[2]}">${f[0]} <b>${f[1]}</b></div>`).join('')
+  +`<p class="adv"><b>Advisory only.</b> AeroBee locates evidence and flags where it's missing. It does not determine compliance, minimum-equipment applicability or airworthiness. Read-only — nothing is written to any system of record.</p>`;
+ li=0;render();}
+setQ(0);
+
+/* objections */
+$$('#obj .oitem').forEach(it=>it.querySelector('.oq').onclick=()=>{
+ const open=it.classList.contains('open');
+ $$('#obj .oitem').forEach(o=>o.classList.remove('open'));
+ if(!open)it.classList.add('open');});
+
+/* calculator */
+const S=[$('#s1'),$('#s2'),$('#s3'),$('#s4')],V=[$('#v1'),$('#v2'),$('#v3'),$('#v4')];
+const fm=n=>n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+Math.round(n/1e3)+'k':'$'+Math.round(n);
+function calc(){const[f,e,h,c]=S.map(s=>+s.value);
+ V[0].textContent=f;V[1].textContent=e;V[2].textContent=h;V[3].textContent='$'+c.toLocaleString();
+ const total=f*e*h*c;
+ $('#out').textContent=fm(total);$('#o1').textContent=fm(total*.1);$('#o3').textContent=fm(total/f);
+ $('#o2').textContent=((f*9000)/(h*c)).toFixed(1)+' events';}
+S.forEach(s=>s.addEventListener('input',calc));calc();
+</script>
+<style>@keyframes gw{from{transform:scaleX(0)}to{transform:scaleX(1)}}</style>
+</body>
+</html>
